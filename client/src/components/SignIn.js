@@ -23,8 +23,8 @@ class SignIn extends Component {
 
             let usernameToSend = username;
 
-            //===
-            if (password.length < 8) {
+            if (password.length < 8)
+            {
                 this.setState({
                     alertMessage: "at least 8 characters for password",
                     status: 'failed',
@@ -32,18 +32,19 @@ class SignIn extends Component {
                     digicode: '',
                 });
                 return;
-            } else {
-
-            } if (digicode.length !== 6) {
+            }
+             if (digicode.length !== 6)
+             {
                 this.setState({
                     alertMessage: "6 digit required for digicode",
                     status: 'failed',
                     digicode: ''
                 });
                 return
-            } else {
-                let userAddress = await this.props.contract.methods.getUserAddress()
-                    .call({ from: this.props.account });
+              }
+            else
+            {
+                let userAddress = await this.props.contract.methods.getUserAddress().call({ from: this.props.account });
 
                 if (userAddress === '0x0000000000000000000000000000000000000000') {
                     this.setState({

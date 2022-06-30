@@ -25,13 +25,14 @@ class App extends Component {
     //color: 'teal'
   };
 
-  handleItemClick = (e, { name }) => this.setState({ activeItem: name, color: 'teal' })
+  handleItemClick = (e, { name }) => {this.setState({ activeItem: name, color: 'teal' })}
 
   componentDidMount = async () => {
     try {
       const web3 = await web3Connection();
       const contract = await Contract(web3);
       const accounts = await web3.eth.getAccounts();
+      console.log('App', this.state);
 
       this.setState({ web3, contract, account: accounts[0] }, this.start);
     } catch (error) {
@@ -47,10 +48,6 @@ class App extends Component {
   start = async () => {
     await this.getAccount();
     const { web3, contract, account } = this.state;
-
-    console.log("web3 =", web3);
-    console.log("Contract =", contract);
-    console.log("Acoount =", account);
   };
 
   getAccount = async () => {
@@ -79,7 +76,7 @@ class App extends Component {
   }
 
   loggedOut = async (loggedIn) => {
-    this.setState({ loggedIn });
+    this.setState({loggedIn});
   }
 
   render() {
@@ -211,6 +208,12 @@ class App extends Component {
                     Thank you
                   </Route>
                   :
+                  <Route path='/sign-out'>
+                    <SignOut loggedOut={this.loggedOut}/>
+                  </Route>
+                }
+                {
+                  !this.state.loggedIn ?
                   <Route path='/sign-up' >
                     <SignUp
                       web3={this.state.web3}
@@ -219,6 +222,8 @@ class App extends Component {
                       accountCreated={this.accountCreated}
                     />
                   </Route>
+                  : null
+
               }
             </Switch>
           </BrowserRouter>
