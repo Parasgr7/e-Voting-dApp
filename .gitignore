@@ -3,12 +3,8 @@
 # dependencies
 
 /client/node_modules/*
-/client/package-lock.json
-/client/package.json
-/client/yarn.lock
 /node_modules
-/package.json
-/package-lock.json
+/client/yarn-lock
 
 
 /.pnp
