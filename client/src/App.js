@@ -22,7 +22,6 @@ class App extends Component {
     signedUp: false,
     loggedIn: false,
     username: ''
-    //color: 'teal'
   };
 
   handleItemClick = (e, { name }) => {this.setState({ activeItem: name, color: 'teal' })}
