@@ -1,8 +1,11 @@
 import React, { Component } from 'react';
-import { Card, Grid, Message, Image } from 'semantic-ui-react';
+import { Card, Grid, Message, Image, Button } from 'semantic-ui-react';
 import '../App.css';
 
 class UserAccount extends Component {
+  componentDidMount = () => {
+      // console.log(this.props);
+  }
 
     render() {
         return (
@@ -26,11 +29,10 @@ class UserAccount extends Component {
                                                 this.props.username.charAt(0).toUpperCase() +
                                                 this.props.username.toLowerCase().slice(1)
                                             }
-                                        </strong> is a scientist and Blockchain developer living in Paris, France.
-                                        <br></br>
-                                        <a href='https://www.linkedin.com/in/samuel-ongala-edoumou/' target='blank'>
-                                            LinkedIn Profile
-                                        </a>
+                                            <br/>
+                                            <br/>
+                                            <Button primary>Register as Candidate</Button>
+                                        </strong>
                                     </Card.Description>
                                 </Card.Content>
                                 <Card.Content extra>

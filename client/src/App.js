@@ -13,16 +13,20 @@ import UserAccount from './components/UserAccount';
 import "./App.css";
 
 class App extends Component {
-  state = {
-    web3: null,
-    account: null,
-    contract: null,
-    balance: null,
-    activeItem: 'home',
-    signedUp: false,
-    loggedIn: false,
-    username: ''
-  };
+  constructor() {
+    super();
+    this.state = {
+      web3: null,
+      account: null,
+      contract: null,
+      balance: null,
+      activeItem: 'home',
+      signedUp: false,
+      loggedIn: window.localStorage.getItem('loggedIn') || false ,
+      username: window.localStorage.getItem('username') || ''
+    };
+  }
+
 
   handleItemClick = (e, { name }) => {this.setState({ activeItem: name, color: 'teal' })}
 
@@ -31,7 +35,6 @@ class App extends Component {
       const web3 = await web3Connection();
       const contract = await Contract(web3);
       const accounts = await web3.eth.getAccounts();
-      console.log('App', this.state);
 
       this.setState({ web3, contract, account: accounts[0] }, this.start);
     } catch (error) {
@@ -56,6 +59,8 @@ class App extends Component {
           account: accounts[0],
           loggedIn: false
         });
+        window.localStorage.removeItem('loggedIn');
+        window.localStorage.removeItem('username');
 
         this.state.web3.eth.getBalance(accounts[0], (err, balance) => {
           if (!err) {
@@ -72,10 +77,15 @@ class App extends Component {
 
   userSignedIn = async (loggedIn, username) => {
     this.setState({ loggedIn, username });
+    window.localStorage.setItem('loggedIn', loggedIn );
+    window.localStorage.setItem('username', username );
+
   }
 
   loggedOut = async (loggedIn) => {
     this.setState({loggedIn});
+    window.localStorage.removeItem('loggedIn');
+    window.localStorage.removeItem('username');
   }
 
   render() {
@@ -90,95 +100,102 @@ class App extends Component {
           <BrowserRouter>
             <div className="home-nav">
               <Menu stackable inverted secondary size='large'>
-                <Menu.Item
-                  name='home'
-                  color={color}
-                  active={activeItem === 'home'}
-                  onClick={this.handleItemClick}
-                  as={Link}
-                  to='/'
-                />
-                <Menu.Item
-                  name='help'
-                  color={color}
-                  active={activeItem === 'help'}
-                  onClick={this.handleItemClick}
-                  as={Link}
-                  to='/help'
-                />
                 {
                   this.state.loggedIn ?
-                    <Menu.Item
-                      position='right'
-                      name='user account'
-                      color={color}
-                      active={activeItem === 'user account'}
-                      onClick={this.handleItemClick}
-                      as={Link}
-                      to='/user-account'
-                    />
+                    (
+                      <>
+                        <Menu.Item
+                        name='Home'
+                        color={color}
+                        active={activeItem === 'home'}
+                        onClick={this.handleItemClick}
+                        as={Link}
+                        to='/'
+                        />
+                        <Menu.Item
+                        name='Cast Vote'
+                        color={color}
+                        active={activeItem === 'cast vote'}
+                        onClick={this.handleItemClick}
+                        as={Link}
+                        to='/vote'
+                        />
+                        <Menu.Item
+                        position='right'
+                        name='user account'
+                        color={color}
+                        active={activeItem === 'user account'}
+                        onClick={this.handleItemClick}
+                        as={Link}
+                        to='/user-account'
+                        />
+                        <Menu.Item
+                          position='right'
+                          name='sign out'
+                          color='red'
+                          active={activeItem === 'sign out'}
+                          onClick={this.handleItemClick}
+                          as={Link}
+                          to='/sign-out'
+                        />
+                      </>
+                      )
                     :
-                    console.log('')
-                }
-                {
-                  !this.state.loggedIn ?
-                    <Menu.Item
-                      position='right'
-                      name='sign in'
-                      color={color}
-                      active={activeItem === 'sign in'}
-                      onClick={this.handleItemClick}
-                      as={Link}
-                      to='/sign-in'
-                    />
-                    :
-                    console.log('')
-                }
+                    (
+                      <>
+                        <Menu.Item
+                          name='home'
+                          color={color}
+                          active={activeItem === 'home'}
+                          onClick={this.handleItemClick}
+                          as={Link}
+                          to='/'
+                        />
+                        <Menu.Item
+                          name='help'
+                          color={color}
+                          active={activeItem === 'help'}
+                          onClick={this.handleItemClick}
+                          as={Link}
+                          to='/help'
 
-                {
-                  this.state.loggedIn ?
-                    <Menu.Item
-                      name='sign out'
-                      color='red'
-                      active={activeItem === 'sign out'}
-                      onClick={this.handleItemClick}
-                      as={Link}
-                      to='/sign-out'
-                    />
-                    :
-                    <Menu.Item
-                      name='sign up'
-                      color={color}
-                      active={activeItem === 'sign up'}
-                      onClick={this.handleItemClick}
-                      as={Link}
-                      to='/sign-up'
-                    />
+                        />
+                        <Menu.Item
+                          position='right'
+                          name='sign in'
+                          color={color}
+                          active={activeItem === 'sign in'}
+                          onClick={this.handleItemClick}
+                          as={Link}
+                          to='/sign-in'
+                        />
+                        <Menu.Item
+                          position='right'
+                          name='sign up'
+                          color={color}
+                          active={activeItem === 'sign up'}
+                          onClick={this.handleItemClick}
+                          as={Link}
+                          to='/sign-up'
+                        />
+                      </>
+                    )
                 }
               </Menu>
             </div>
-            <Divider inverted />
 
+            <Divider inverted />
             <Switch>
-              <Route exact path='/' >
-                <Home />
-              </Route>
-              <Route path='/help' >
-                Help page
-              </Route>
-              {
-                this.state.loggedIn ?
-                  <Route path='/user-account' >
-                    <UserAccount
-                      account={this.state.account}
-                      username={this.state.username}
-                    />
-                  </Route>
+              <Route path='/help'  >
+                {
+                  this.state.loggedIn ?
+                  <Redirect to='/user-account' />
                   :
-                  <Route path='/user-account'>
-                    You have been logged out
+                  <Route path='/help'>
+                    Helps Page
                   </Route>
-              }
+                }
+              </Route>
               {
                 <Route path='/sign-in' >
                   {
@@ -195,35 +212,57 @@ class App extends Component {
                   }
                 </Route>
               }
-
               {
-                this.state.loggedIn ?
-                  <Route path='/sign-out'>
-                    <SignOut
-                      loggedOut={this.loggedOut}
-                    />
-                    You've been logged out
-                    <br></br>
-                    Thank you
-                  </Route>
-                  :
-                  <Route path='/sign-out'>
-                    <SignOut loggedOut={this.loggedOut}/>
-                  </Route>
-                }
-                {
-                  !this.state.loggedIn ?
-                  <Route path='/sign-up' >
-                    <SignUp
-                      web3={this.state.web3}
-                      contract={this.state.contract}
-                      account={this.state.account}
-                      accountCreated={this.accountCreated}
-                    />
-                  </Route>
-                  : null
-
+                <Route path='/sign-up' >
+                  {
+                    this.state.loggedIn ?
+                      <Redirect to='/user-account' />
+                      :
+                      <SignUp
+                        web3={this.state.web3}
+                        contract={this.state.contract}
+                        account={this.state.account}
+                        accountCreated={this.accountCreated}
+                      />
+                  }
+                </Route>
               }
+              {
+                  this.state.loggedIn ?
+                  (
+                    <>
+                      <Route exact path='/' >
+                        <Home />
+                      </Route>
+                      <Route path='/sign-out'>
+                        <SignOut
+                          loggedOut={this.loggedOut}
+                        />
+                        You've been logged out
+                        <br></br>
+                        Thank you
+                      </Route>
+                      <Route path='/user-account' >
+                        <UserAccount
+                          account={this.state.account}
+                          username={this.state.username}
+                        />
+                      </Route>
+                    </>
+                  )
+                  :
+                  (
+                    <>
+                      <Route path='/sign-out'>
+                        <SignOut loggedOut={this.loggedOut}/>
+                      </Route>
+                      <Route path='/user-account'>
+                        You have been logged out
+                      </Route>
+                    </>
+                  )
+              }
+
             </Switch>
           </BrowserRouter>
         </div>

@@ -1,4 +1,5 @@
-pragma solidity 0.6.0;
+// SPDX-License-Identifier: MIT
+pragma solidity 0.8.6;
 
 contract Election {
     // Model a Candidate
@@ -13,10 +14,9 @@ contract Election {
 
     // Store accounts that have voted
     mapping(address => bool) public voters;
-
+    // Store Candidates
     // Fetch Candidate
     mapping(uint => Candidate) public candidates;
-
     // Store Candidates Count
     uint public candidatesCount;
     uint public endTime;
@@ -27,17 +27,15 @@ contract Election {
     event votedEvent (
         uint indexed _candidateId
     );
-
     modifier onlyAdmin(){
         require(admin_address == msg.sender, "Admin Permission");
         _;
     }
     modifier votingPeriod(){
-        require (startTime <= now && now <= endTime, "Voting Time Over");
+        require (startTime <= block.timestamp && block.timestamp <= endTime, "Voting Time Error");
         _;
     }
-
-    constructor () public {
+    constructor (){
         admin_address = msg.sender;
         votingProcess = false;
     }
@@ -59,8 +57,10 @@ contract Election {
         votingProcess = true;
     }
      function stopVote() public onlyAdmin {
-        require(now >= endTime && votingProcess);
+        require(block.timestamp >= endTime && votingProcess);
         votingProcess = false;
+        startTime = 0;
+        endTime = 0;
     }
 
     function vote (uint _candidateId) public votingPeriod{
