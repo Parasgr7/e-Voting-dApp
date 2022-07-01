@@ -15,7 +15,6 @@ class SignUp extends Component {
     }
 
     onSignUp = async () => {
-        //this.setState({ signedUp: false });
 
         if (this.state.username !== '' && this.state.password !== '' && this.state.digicode !== '') {
             let username = this.state.username.trim();

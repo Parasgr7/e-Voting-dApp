@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import web3Connection from './web3Connection';
 import Contract from './Contract';
+import Election from './Election';
 import Formate from './utils/Formate';
 import 'semantic-ui-css/semantic.min.css'
 import { Menu, Divider } from "semantic-ui-react";
@@ -18,7 +19,8 @@ class App extends Component {
     this.state = {
       web3: null,
       account: null,
-      contract: null,
+      auth_contract: null,
+      election_contract: null,
       balance: null,
       activeItem: 'home',
       signedUp: false,
@@ -33,10 +35,11 @@ class App extends Component {
   componentDidMount = async () => {
     try {
       const web3 = await web3Connection();
-      const contract = await Contract(web3);
+      const auth_contract = await Contract(web3);
+      const election_contract = await Election(web3);
       const accounts = await web3.eth.getAccounts();
+      this.setState({ web3, auth_contract, election_contract, account: accounts[0] }, this.start);
 
-      this.setState({ web3, contract, account: accounts[0] }, this.start);
     } catch (error) {
       alert(
         `Failed to load web3`,
@@ -49,7 +52,7 @@ class App extends Component {
 
   start = async () => {
     await this.getAccount();
-    const { web3, contract, account } = this.state;
+    const { web3, auth_contract, election_contract, account } = this.state;
   };
 
   getAccount = async () => {
@@ -204,7 +207,7 @@ class App extends Component {
                       :
                       <SignIn
                         web3={this.state.web3}
-                        contract={this.state.contract}
+                        contract={this.state.auth_contract}
                         account={this.state.account}
                         signedUp={this.state.signedUp}
                         userSignedIn={this.userSignedIn}
@@ -220,7 +223,7 @@ class App extends Component {
                       :
                       <SignUp
                         web3={this.state.web3}
-                        contract={this.state.contract}
+                        contract={this.state.auth_contract}
                         account={this.state.account}
                         accountCreated={this.accountCreated}
                       />
@@ -246,6 +249,7 @@ class App extends Component {
                         <UserAccount
                           account={this.state.account}
                           username={this.state.username}
+                          contract={this.state.election_contract}
                         />
                       </Route>
                     </>

@@ -8,7 +8,7 @@ class SignIn extends Component {
     state = {
         username: '',
         password: '',
-        digicode: '',
+        digicode: '123456',
         alertMessage: '',
         status: '',
         loggedIn: false

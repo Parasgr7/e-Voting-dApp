@@ -1,12 +1,18 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
 import { Card, Grid, Message, Image, Button } from 'semantic-ui-react';
 import '../App.css';
 
 class UserAccount extends Component {
-  componentDidMount = () => {
-      // console.log(this.props);
-  }
+    state = {
+      disable: false,
+      buttonText: 'Register as Candidate'
+    }
 
+    registerCandidate = async () => {
+      let username = this.props.username.split('@')[0].charAt(0).toUpperCase() +  this.props.username.split('@')[0].toLowerCase().slice(1);
+       await this.props.contract.methods.registerCandidate(username).send({ from: this.props.account });
+      this.setState({disable: true, buttonText: "Approval Pending..." });
+    }
     render() {
         return (
             <div className='user-account'>
@@ -31,7 +37,7 @@ class UserAccount extends Component {
                                             }
                                             <br/>
                                             <br/>
-                                            <Button primary>Register as Candidate</Button>
+                                            <Button primary fluid disabled={this.state.disable} size='large' onClick={this.registerCandidate}>{this.state.buttonText}</Button>
                                         </strong>
                                     </Card.Description>
                                 </Card.Content>
