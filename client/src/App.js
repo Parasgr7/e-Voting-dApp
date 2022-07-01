@@ -19,6 +19,7 @@ class App extends Component {
     this.state = {
       web3: null,
       account: null,
+      admin_address: null,
       auth_contract: null,
       election_contract: null,
       balance: null,
@@ -37,8 +38,11 @@ class App extends Component {
       const web3 = await web3Connection();
       const auth_contract = await Contract(web3);
       const election_contract = await Election(web3);
-      const accounts = await web3.eth.getAccounts();
-      this.setState({ web3, auth_contract, election_contract, account: accounts[0] }, this.start);
+      const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
+      const admin_address_upper = await election_contract.methods.admin_address().call({ from: accounts[0].toLowerCase()});
+      const admin_address = admin_address_upper.toLowerCase();
+
+      this.setState({ web3, auth_contract, election_contract, account: accounts[0], admin_address }, this.start);
 
     } catch (error) {
       alert(
@@ -52,7 +56,7 @@ class App extends Component {
 
   start = async () => {
     await this.getAccount();
-    const { web3, auth_contract, election_contract, account } = this.state;
+    const { web3, auth_contract, election_contract, account, admin_address } = this.state;
   };
 
   getAccount = async () => {
@@ -103,6 +107,7 @@ class App extends Component {
           <BrowserRouter>
             <div className="home-nav">
               <Menu stackable inverted secondary size='large'>
+
                 {
                   this.state.loggedIn ?
                     (
@@ -115,6 +120,17 @@ class App extends Component {
                         as={Link}
                         to='/'
                         />
+                        {(this.state.admin_address === this.state.account) ?
+                          <Menu.Item
+                            name='Admin'
+                            color='red'
+                            active={activeItem === 'admin'}
+                            onClick={this.handleItemClick}
+                            as={Link}
+                            to='/admin'
+                          />:
+                          null
+                        }
                         <Menu.Item
                         name='Cast Vote'
                         color={color}
@@ -252,6 +268,18 @@ class App extends Component {
                           contract={this.state.election_contract}
                         />
                       </Route>
+                      {
+                        this.state.admin_address === this.state.account ?
+                        <Route path='/admin' >
+                          <UserAccount
+                            account={this.state.account}
+                            username={this.state.username}
+                            contract={this.state.election_contract}
+                          />
+                        </Route>
+                        :
+                        null
+                      }
                     </>
                   )
                   :
