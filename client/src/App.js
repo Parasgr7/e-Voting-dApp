@@ -11,6 +11,8 @@ import SignUp from "./components/SignUp";
 import SignIn from "./components/SignIn"
 import SignOut from "./components/SignOut";
 import UserAccount from './components/UserAccount';
+import Admin from './components/Admin';
+import Voting from './components/Voting';
 import "./App.css";
 
 class App extends Component {
@@ -83,6 +85,7 @@ class App extends Component {
   }
 
   userSignedIn = async (loggedIn, username) => {
+    var username = username.split('@')[0].charAt(0).toUpperCase() + username.split('@')[0].toLowerCase().slice(1);
     this.setState({ loggedIn, username });
     window.localStorage.setItem('loggedIn', loggedIn );
     window.localStorage.setItem('username', username );
@@ -123,7 +126,7 @@ class App extends Component {
                         {(this.state.admin_address === this.state.account) ?
                           <Menu.Item
                             name='Admin'
-                            color='red'
+                            color={color}
                             active={activeItem === 'admin'}
                             onClick={this.handleItemClick}
                             as={Link}
@@ -271,7 +274,7 @@ class App extends Component {
                       {
                         this.state.admin_address === this.state.account ?
                         <Route path='/admin' >
-                          <UserAccount
+                          <Admin
                             account={this.state.account}
                             username={this.state.username}
                             contract={this.state.election_contract}
@@ -280,6 +283,13 @@ class App extends Component {
                         :
                         null
                       }
+                      <Route path='/vote' >
+                        <Voting
+                          account={this.state.account}
+                          username={this.state.username}
+                          contract={this.state.election_contract}
+                        />
+                      </Route>
                     </>
                   )
                   :

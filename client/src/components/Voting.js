@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import { Card, Grid, Message, Image, Button, Icon } from 'semantic-ui-react';
+import { Card, Grid, Message, Image, Button } from 'semantic-ui-react';
 import '../App.css';
 
-class UserAccount extends Component {
+class Voting extends Component {
   constructor() {
     super();
     this.state = {
@@ -13,11 +13,11 @@ class UserAccount extends Component {
     }
   }
     componentDidMount = async () => {
-      this.fetch_candidates();
+      this.find_candidate();
 
     }
 
-    fetch_candidates = async() => {
+    find_candidate = async() => {
       var candidates_count = await this.props.contract.methods.candidatesCount().call({ from: this.props.account });
       for(var i=1; i<= candidates_count; i++ )
       {
@@ -28,9 +28,10 @@ class UserAccount extends Component {
             disable: true,
             buttonText: 'Candidate Approval Pending...',
             candidate_id: candidate.id,
-            approved: candidate.approved});
+            approved: candidate.approve});
 
         }
+        break;
       }
     }
 
@@ -57,13 +58,7 @@ class UserAccount extends Component {
                                     <Card.Description>
                                         <strong>Username: <b> {this.props.username} </b> </strong>
                                         <br/><br/>
-                                        {
-                                          this.state.approved ?
-                                          <Button color="green" size='large'> <Icon name="check"/>Approved</Button>
-                                          :
-                                          <Button primary disabled={this.state.disable} size='large' onClick={this.registerCandidate}>{this.state.buttonText}</Button>
-                                        }
-
+                                        <Button primary fluid disabled={this.state.disable} size='large' onClick={this.registerCandidate}>{this.state.buttonText}</Button>
                                     </Card.Description>
                                 </Card.Content>
                                 <Card.Content extra>
@@ -81,4 +76,4 @@ class UserAccount extends Component {
     }
 }
 
-export default UserAccount;
+export default Voting;
