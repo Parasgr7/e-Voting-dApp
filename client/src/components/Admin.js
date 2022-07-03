@@ -8,11 +8,8 @@ class Admin extends Component {
   constructor(props) {
     super(props);
     this.state = {
-      disable: false,
-      buttonText: 'Approve',
       candidate_id: null ,
       candidates_count: 0,
-      approved: false,
       unapproved_candidates: [],
       color: 'blue',
       startTime: 1,
@@ -51,9 +48,12 @@ class Admin extends Component {
         this.setState({unapproved_candidates: arr});
     }
 
-    approve= async (candidate_id) => {
-        await this.props.contract.methods.approve(candidate_id).send({ from: this.props.account });
-        this.setState({disable: true, buttonText: "Approved", color: "green" });
+    approve= async (event) => {
+        event.persist();
+        await this.props.contract.methods.approve(event.target.id).send({ from: this.props.account });
+        event.target.innerText = "Approved";
+        event.target.disabled = 1;
+        event.target.style.background = "green";
     }
 
     startVoting = async()=> {
@@ -71,13 +71,13 @@ class Admin extends Component {
     render() {
         return (
             <div className='user-account'>
-            {this.state.unapproved_candidates.length === 0 ?
+            {(this.state.unapproved_candidates.length === 0 )?
               (
               <div>
                 <h1>No pending candidate</h1>
                 <br/><br/>
                 {
-                  (this.state.endTime === 0 && this.state.startTime === 0 && !this.state.votingProcess) ?
+                  (this.state.endTime === 0 && this.state.startTime === 0 && !this.state.votingProcess && this.state.candidates_count) ?
                   (
                     <>
                       <Input action={{
@@ -124,8 +124,8 @@ class Admin extends Component {
                   {
                     this.state.unapproved_candidates.map((candidate, index) => {
                       return(
-                      <Grid.Column key = {candidate.id} >
-                          <Card fluid>
+                      <Grid.Column key={index}>
+                          <Card>
                               <Image
                                   src='https://react.semantic-ui.com/images/avatar/large/steve.jpg'
                                   wrapped ui={false}
@@ -138,7 +138,7 @@ class Admin extends Component {
                                   <Card.Description>
                                       <strong>Username: <b> {candidate.name} </b> </strong>
                                       <br/><br/>
-                                      <Button disabled={this.state.disable} color= {this.state.color} size='large' onClick={()=> this.approve(candidate.id)}>{this.state.buttonText}</Button>
+                                      <Button id={candidate.id} color="blue" size='large' onClick={(e) => this.approve(e)}>Approve</Button>
                                   </Card.Description>
                               </Card.Content>
                           </Card>

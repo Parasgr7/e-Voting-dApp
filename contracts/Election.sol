@@ -5,6 +5,7 @@ contract Election {
     // Model a Candidate
     struct Candidate {
         uint id;
+        address candidate_address;
         string name;
         uint voteCount;
         bool approved;
@@ -42,7 +43,7 @@ contract Election {
 
     function registerCandidate (string memory _name) public {
         candidatesCount ++;
-        candidates[candidatesCount] = Candidate(candidatesCount, _name, 0, false);
+        candidates[candidatesCount] = Candidate(candidatesCount,msg.sender, _name, 0, false);
     }
 
     function approve (uint _candidateId) public onlyAdmin{
@@ -61,6 +62,11 @@ contract Election {
         votingProcess = false;
         startTime = 0;
         endTime = 0;
+        for (uint i=1; i<= candidatesCount ; i++) {
+            candidates[i].approved = false;
+            candidates[i].voteCount = 0;
+            voters[candidates[i].candidate_address] = false;
+        }
     }
 
     function vote (uint _candidateId) public votingPeriod{

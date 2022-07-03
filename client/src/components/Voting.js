@@ -10,7 +10,7 @@ class Voting extends Component {
     this._isMounted = false;
 
     this.state = {
-      disable: false,
+      disable: 0,
       buttonText: 'Vote',
       approved: false,
       approved_candidates: [],
@@ -18,6 +18,7 @@ class Voting extends Component {
       voted: false,
       votingProcess: false,
       votingResult: [1],
+      buttonText: "Vote",
       display_results: false,
       results_button_text: 'Show Results',
       votingPeriod: false,
@@ -103,8 +104,12 @@ class Voting extends Component {
       this.setState({voted: voted});
     }
 
-    cast_vote = async (candidate_id) => {
-       await this.props.contract.methods.vote(candidate_id).send({ from: this.props.account, gasLimit: 50000 });
+    cast_vote = async (event) => {
+       event.persist();
+       await this.props.contract.methods.vote(event.target.id).send({ from: this.props.account});
+       event.target.innerText = "Success";
+       event.target.style.background = "green";
+       this.setState({disable: 1, color:"red"});
     }
 
     render() {
@@ -156,7 +161,10 @@ class Voting extends Component {
                                             )
                                           }
                                         <br/>
-                                        <Button basic disabled={this.state.disable} color= {this.state.color} size='large' onClick={()=> this.cast_vote(candidate.id)}>{this.state.buttonText}</Button>
+                                        {this.state.votingProcess ?
+                                          <Button id={candidate.id} disabled={this.state.disable} color={this.state.color} size='large' onClick={(event)=> this.cast_vote(event)}>{this.state.buttonText}</Button>
+                                          : null}
+
                                     </Card.Description>
                                 </Card.Content>
                               </Card>
