@@ -18,6 +18,7 @@ class Voting extends Component {
       voted: false,
       votingProcess: false,
       votingResult: [1],
+      voted_id:1,
       buttonText: "Vote",
       display_results: false,
       results_button_text: 'Show Results',
@@ -99,17 +100,18 @@ class Voting extends Component {
 
     }
 
-    hasVoted = async() =>{
+    hasVoted = async(id) =>{
       var voted = await this.props.contract.methods.voters(this.props.account).call({ from: this.props.account });
-      this.setState({voted: voted});
+      this.setState({voted: voted, voted_id: id});
     }
 
     cast_vote = async (event) => {
        event.persist();
        await this.props.contract.methods.vote(event.target.id).send({ from: this.props.account});
-       event.target.innerText = "Success";
-       event.target.style.background = "green";
-       this.setState({disable: 1, color:"red"});
+       // event.target.innerText = "Success";
+       // event.target.style.background = "green";
+       // this.setState({disable: 1, color:"red"});
+       this.hasVoted(event.target.id);
     }
 
     render() {
@@ -161,9 +163,12 @@ class Voting extends Component {
                                             )
                                           }
                                         <br/>
-                                        {this.state.votingProcess ?
-                                          <Button id={candidate.id} disabled={this.state.disable} color={this.state.color} size='large' onClick={(event)=> this.cast_vote(event)}>{this.state.buttonText}</Button>
-                                          : null}
+                                        {
+                                          this.state.votingProcess && !this.state.voted ?
+                                          <Button id={candidate.id} color="green" size='large' onClick={(event)=> this.cast_vote(event)}>Vote</Button>
+                                          :
+                                            ((this.state.voted_id === candidate.id) && this.state.voted)  ? <Button id={candidate.id} disabled color="green" size='large' >Voted</Button>: null
+                                        }
 
                                     </Card.Description>
                                 </Card.Content>

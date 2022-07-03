@@ -63,10 +63,14 @@ contract Election {
         startTime = 0;
         endTime = 0;
         for (uint i=1; i<= candidatesCount ; i++) {
-            candidates[i].approved = false;
-            candidates[i].voteCount = 0;
             voters[candidates[i].candidate_address] = false;
+            candidates[i].id = 0;
+            candidates[i].candidate_address = address(0);
+            candidates[i].name = '';
+            candidates[i].voteCount = 0;
+            candidates[i].approved = false;
         }
+        candidatesCount = 0;
     }
 
     function vote (uint _candidateId) public votingPeriod{
