@@ -14,7 +14,6 @@ class UserAccount extends Component {
   }
     componentDidMount = async () => {
       this.fetch_candidates();
-
     }
 
     fetch_candidates = async() => {
@@ -29,7 +28,8 @@ class UserAccount extends Component {
             buttonText: 'Candidate Approval Pending...',
             candidate_id: candidate.id,
             approved: candidate.approved});
-
+            window.localStorage.setItem('userId', candidate.id );
+          break;
         }
       }
     }

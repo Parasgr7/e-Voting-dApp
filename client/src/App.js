@@ -96,6 +96,7 @@ class App extends Component {
     this.setState({loggedIn});
     window.localStorage.removeItem('loggedIn');
     window.localStorage.removeItem('username');
+    window.localStorage.removeItem('userId' );
   }
 
   render() {

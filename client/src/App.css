@@ -103,6 +103,11 @@ body {
   margin: 0.5rem;
 }
 
+ .ui.fluid.card.electionWinner{
+  border: 5px solid #023020;
+  border-radius: 1.25rem;
+}
+
 .expired-notice > span {
   font-size: 2rem;
   color: red;

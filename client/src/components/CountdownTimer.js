@@ -1,4 +1,4 @@
-import React from 'react';
+import React,{useState} from 'react';
 import DateTimeDisplay from './DateTimeDisplay';
 import { useCountdown } from '../hooks/useCountdown';
 
@@ -6,6 +6,7 @@ const ExpiredNotice = () => {
   return (
     <div className="expired-notice">
       <span>Voting Time Expired!!!</span>
+
     </div>
   );
 };
@@ -26,11 +27,11 @@ const ShowCounter = ({ days, hours, minutes, seconds }) => {
   );
 };
 
-const CountdownTimer = ({ targetDate, votingProcess }) => {
-  const [days, hours, minutes, seconds] = useCountdown(targetDate);
+const CountdownTimer = (props) => {
+  const [days, hours, minutes, seconds] = useCountdown(props.targetDate);
   if (days + hours + minutes + seconds <= 0) {
     return (
-      votingProcess ? <ExpiredNotice /> : null
+      props.votingProcess ? <ExpiredNotice  /> : null
     );
   } else {
     return (
@@ -40,6 +41,7 @@ const CountdownTimer = ({ targetDate, votingProcess }) => {
         minutes={minutes}
         seconds={seconds}
       />
+
     );
   }
 };

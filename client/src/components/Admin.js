@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Grid, Message, Image, Button, Input } from 'semantic-ui-react';
+import { Card, Grid, Image, Button, Input } from 'semantic-ui-react';
 import '../App.css';
 import CountdownTimer from './CountdownTimer';
 
@@ -15,8 +15,8 @@ class Admin extends Component {
       approved: false,
       unapproved_candidates: [],
       color: 'blue',
-      startTime: 0,
-      endTime: 0,
+      startTime: 1,
+      endTime: 1,
       votingProcess: false,
       votingTimePeriod: 1
     }
@@ -62,7 +62,6 @@ class Admin extends Component {
 
     stopVoting = async()=> {
       await this.props.contract.methods.stopVote().send({ from: this.props.account });
-
     }
 
     handleInputChange = e => {
