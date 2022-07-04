@@ -121,7 +121,8 @@ class Voting extends Component {
             {this.state.approved_candidates.length === 0 ? <h1>No Candidates</h1> :
               <>
               <Grid columns={this.state.approved_candidates.length} divided>
-              <h1>Cast your vote</h1>
+                {this.state.voted? <h1>Vote Recorded</h1>  : <h1>Cast your vote</h1> }
+
                 <CountdownTimer targetDate={this.state.endTime} votingProcess={this.state.votingProcess} />
                 <br/>
                 {(this.state.votingProcess && this.state.endTime < this.state.dateNow) ? <Button basic color= "green" size="large" onClick={()=> this.fetch_election_results()}>{this.state.results_button_text}</Button>: null}

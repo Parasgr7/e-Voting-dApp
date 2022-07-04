@@ -11,7 +11,7 @@ class Admin extends Component {
     this.state = {
       candidate_id: null ,
       candidates_count: 0,
-      unapproved_candidates: [2],
+      unapproved_candidates: [],
       approved_candidates: [],
       color: 'blue',
       startTime: 1,
@@ -68,6 +68,7 @@ class Admin extends Component {
         event.target.innerText = "Approved";
         event.target.disabled = 1;
         event.target.style.background = "green";
+        // this.fetch_candidates_data();
 
     }
 
@@ -101,7 +102,7 @@ class Admin extends Component {
                 }
                 <br/><br/>
                 {
-                  (this.state.endTime === 0 && this.state.startTime === 0 && !this.state.votingProcess && this.state.approved_candidates.length >= 1) ?
+                  (this.state.endTime === 0 && this.state.startTime === 0 && !this.state.votingProcess && this.state.approved_candidates.length >= 2) ?
                     <Input action={{
                         color: 'teal',
                         labelPosition: 'left',

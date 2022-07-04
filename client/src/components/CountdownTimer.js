@@ -11,6 +11,15 @@ const ExpiredNotice = () => {
   );
 };
 
+const Loading = () => {
+  return (
+    <div className="loading">
+      <span>Loading...</span>
+
+    </div>
+  );
+};
+
 const ShowCounter = ({ days, hours, minutes, seconds }) => {
   return (
     <div className="show-counter">
@@ -28,12 +37,19 @@ const ShowCounter = ({ days, hours, minutes, seconds }) => {
 };
 
 const CountdownTimer = (props) => {
-  const [days, hours, minutes, seconds] = useCountdown(props.targetDate);
-  if (days + hours + minutes + seconds <= 0) {
+  const [days, hours, minutes, seconds] = useCountdown(Number(props.targetDate));
+  console.log(props.targetDate);
+  console.log(days, hours, minutes, seconds);
+  if(days + hours + minutes + seconds < -19000)
+  {
+    return(null);
+  }
+  else if (days + hours + minutes + seconds <=0) {
     return (
       props.votingProcess ? <ExpiredNotice  /> : null
     );
-  } else {
+  }
+   else {
     return (
       <ShowCounter
         days={days}
