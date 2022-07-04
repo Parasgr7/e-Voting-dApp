@@ -7,20 +7,30 @@ import CountdownTimer from './CountdownTimer';
 class Admin extends Component {
   constructor(props) {
     super(props);
+    this._isMounted = false;
     this.state = {
       candidate_id: null ,
       candidates_count: 0,
-      unapproved_candidates: [],
+      unapproved_candidates: [2],
+      approved_candidates: [],
       color: 'blue',
       startTime: 1,
       endTime: 1,
       votingProcess: false,
-      votingTimePeriod: 1
+      votingTimePeriod: 1,
+      dateNow: Math.floor((new Date().getTime())/1000)
     }
 
   }
     componentDidMount = async () => {
+      this._isMounted = true;
       this.fetch_candidates_data();
+      this.interval = setInterval(() => this.setState({dateNow : Math.floor((new Date().getTime())/1000)}), 1000);
+
+    }
+
+    componentWillUnmount() {
+      clearInterval(this.interval);
     }
 
     fetch_candidates_data = async() => {
@@ -37,6 +47,7 @@ class Admin extends Component {
         });
 
         var arr = [];
+        var approved_arr = [];
         for(var i=1; i<= this.state.candidates_count; i++ )
         {
           var candidate = await this.props.contract.methods.candidates(i).call({ from: this.props.account });
@@ -44,8 +55,11 @@ class Admin extends Component {
           {
             arr.push(candidate);
           }
+          else{
+            approved_arr.push(candidate)
+          }
         }
-        this.setState({unapproved_candidates: arr});
+        this.setState({unapproved_candidates: arr,approved_candidates: approved_arr });
     }
 
     approve= async (event) => {
@@ -54,14 +68,21 @@ class Admin extends Component {
         event.target.innerText = "Approved";
         event.target.disabled = 1;
         event.target.style.background = "green";
+
     }
 
     startVoting = async()=> {
       await this.props.contract.methods.startVote(this.state.votingTimePeriod).send({ from: this.props.account });
+      var endTime = await this.props.contract.methods.endTime().call({ from: this.props.account });
+
+      this.setState({votingProcess: true, endTime: endTime});
+      console.log(this.state);
     }
 
     stopVoting = async()=> {
       await this.props.contract.methods.stopVote().send({ from: this.props.account });
+      this.setState({votingProcess: false});
+      console.log(this.state);
     }
 
     handleInputChange = e => {
@@ -71,59 +92,55 @@ class Admin extends Component {
     render() {
         return (
             <div className='user-account'>
-            {(this.state.unapproved_candidates.length === 0 )?
-              (
-              <div>
-                <h1>No pending candidate</h1>
-                <br/><br/>
-                {
-                  (this.state.endTime === 0 && this.state.startTime === 0 && !this.state.votingProcess && this.state.candidates_count) ?
-                  (
-                    <>
-                      <Input action={{
-                          color: 'teal',
-                          labelPosition: 'left',
-                          icon: 'clock outline',
-                          content: 'Start Voting',
-                          onClick: () => this.startVoting()
-                        }}
-                      onChange={this.handleInputChange}
-                      actionPosition='left'
-                      defaultValue={this.state.votingTimePeriod}
-                      placeholder='Time period (mins)'
-                      />
-                    </>
 
-                  )
-                  :
-                  (
-                    <>
-                    {  ((Math.floor(Date.now()/1000) > this.state.endTime) && this.state.votingProcess)?
-                      (
-                        <>
-                        <Button inverted color='red' onClick={this.stopVoting}>Stop Voting</Button>
-                        </>
-                      )
-                      :
-                      (
-                          <>
-                            <CountdownTimer targetDate={this.state.endTime} votingProcess={this.state.votingProcess} />
-                          </>
-                      )
-                    }
-                    </>
-                  )
-                }
-              </div>
-            )
-              :
+            {
               (<>
               <Grid columns={this.state.unapproved_candidates.length} divided>
-                  <Grid.Row>
+                {
+                  this.state.unapproved_candidates.length ===0 ? <h1>No Pending Candidates</h1> : <h1>Pending Candidates</h1>
+                }
+                <br/><br/>
+                {
+                  (this.state.endTime === 0 && this.state.startTime === 0 && !this.state.votingProcess && this.state.approved_candidates.length >= 1) ?
+                    <Input action={{
+                        color: 'teal',
+                        labelPosition: 'left',
+                        icon: 'clock outline',
+                        content: 'Start Voting',
+                        onClick: () => this.startVoting()
+                      }}
+                    onChange={this.handleInputChange}
+                    actionPosition='left'
+                    defaultValue={this.state.votingTimePeriod}
+                    placeholder='Time period (mins)'
+                    />
+                  :
+                  (
+                      <>
 
+                        {
+                            ((this.state.dateNow > this.state.endTime) && this.state.votingProcess)?
+                          (
+                            <>
+                            <Button inverted color='red' onClick={this.stopVoting}>End Election</Button>
+                            </>
+                          )
+                          :
+                          (
+                              <>
+                                <CountdownTimer targetDate={this.state.endTime} votingProcess={this.state.votingProcess} />
+                              </>
+                          )
+                        }
+                      </>
+                    )
+                  }
+                  <Grid.Row>
                   {
+                    (
                     this.state.unapproved_candidates.map((candidate, index) => {
                       return(
+                        <>
                       <Grid.Column key={index}>
                           <Card>
                               <Image
@@ -143,8 +160,10 @@ class Admin extends Component {
                               </Card.Content>
                           </Card>
                       </Grid.Column>
+                      </>
                     )
                     })
+                  )
 
                   }
 

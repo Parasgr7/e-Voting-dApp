@@ -34,7 +34,6 @@ class Voting extends Component {
       this.fetch_candidates_data();
       this.hasVoted();
       this.interval = setInterval(() => this.setState({dateNow : Math.floor((new Date().getTime())/1000)}), 1000);
-
     }
     componentWillUnmount() {
       clearInterval(this.interval);
@@ -64,6 +63,7 @@ class Voting extends Component {
         }
 
         this.setState({approved_candidates: arr});
+        console.log(this.state);
     }
 
     fetch_election_results = async() =>{
@@ -163,8 +163,9 @@ class Voting extends Component {
                                             )
                                           }
                                         <br/>
+
                                         {
-                                          this.state.votingProcess && !this.state.voted ?
+                                          (this.state.votingProcess && !this.state.voted && (this.state.endTime > this.state.dateNow) ) ?
                                           <Button id={candidate.id} color="green" size='large' onClick={(event)=> this.cast_vote(event)}>Vote</Button>
                                           :
                                             ((this.state.voted_id === candidate.id) && this.state.voted)  ? <Button id={candidate.id} disabled color="green" size='large' >Voted</Button>: null
@@ -206,7 +207,6 @@ class Voting extends Component {
                                       }
 
                                       <br/>
-                                      <Button basic disabled={this.state.disable} color= {this.state.color} size='large' onClick={()=> this.cast_vote(candidate.id)}>{this.state.buttonText}</Button>
                                   </Card.Description>
                               </Card.Content>
                             </Card>
