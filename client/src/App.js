@@ -33,7 +33,7 @@ class App extends Component {
   }
 
 
-  handleItemClick = (e, { name }) => {this.setState({ activeItem: name, color: 'teal' })}
+  handleItemClick = (e, { name }) => {this.setState({ activeItem: name });}
 
   componentDidMount = async () => {
     try {
@@ -110,23 +110,23 @@ class App extends Component {
         <div className="main-page">
           <BrowserRouter>
             <div className="home-nav">
-              <Menu stackable inverted secondary size='large'>
+              <Menu inverted secondary size='large'>
 
                 {
                   this.state.loggedIn ?
                     (
                       <>
                         <Menu.Item
-                        name='Home'
-                        color={color}
-                        active={activeItem === 'home'}
-                        onClick={this.handleItemClick}
-                        as={Link}
-                        to='/'
+                          name='home'
+                          color={color}
+                          active={activeItem === 'home'}
+                          onClick={this.handleItemClick}
+                          as={Link}
+                          to='/'
                         />
                         {(this.state.admin_address === this.state.account) ?
                           <Menu.Item
-                            name='Admin'
+                            name='admin'
                             color={color}
                             active={activeItem === 'admin'}
                             onClick={this.handleItemClick}
@@ -136,21 +136,22 @@ class App extends Component {
                           null
                         }
                         <Menu.Item
-                        name='Cast Vote'
-                        color={color}
-                        active={activeItem === 'cast vote'}
-                        onClick={this.handleItemClick}
-                        as={Link}
-                        to='/vote'
+                          name='cast vote'
+                          color={color}
+                          active={activeItem === 'cast vote'}
+                          onClick={this.handleItemClick}
+                          as={Link}
+                          to='/vote'
                         />
+                      <Menu.Menu position='right'>
                         <Menu.Item
-                        position='right'
-                        name='user account'
-                        color={color}
-                        active={activeItem === 'user account'}
-                        onClick={this.handleItemClick}
-                        as={Link}
-                        to='/user-account'
+                          position='right'
+                          name='user account'
+                          color={color}
+                          active={activeItem === 'user account'}
+                          onClick={this.handleItemClick}
+                          as={Link}
+                          to='/user-account'
                         />
                         <Menu.Item
                           position='right'
@@ -161,6 +162,7 @@ class App extends Component {
                           as={Link}
                           to='/sign-out'
                         />
+                      </Menu.Menu>
                       </>
                       )
                     :
@@ -183,6 +185,7 @@ class App extends Component {
                           to='/help'
 
                         />
+                      <Menu.Menu position='right'>
                         <Menu.Item
                           position='right'
                           name='sign in'
@@ -201,6 +204,7 @@ class App extends Component {
                           as={Link}
                           to='/sign-up'
                         />
+                      </Menu.Menu>
                       </>
                     )
                 }
@@ -296,6 +300,9 @@ class App extends Component {
                   :
                   (
                     <>
+                      <Route exact path='/' >
+                        <Home />
+                      </Route>
                       <Route path='/sign-out'>
                         <SignOut loggedOut={this.loggedOut}/>
                       </Route>

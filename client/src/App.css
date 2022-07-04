@@ -103,9 +103,13 @@ body {
   margin: 0.5rem;
 }
 
+ .ui.fluid.card {
+   word-wrap: break-word;
+ }
  .ui.fluid.card.electionWinner{
   border: 5px solid #023020;
   border-radius: 1.25rem;
+  /* word-wrap: break-word; */
 }
 
 .expired-notice > span {

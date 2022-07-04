@@ -42,13 +42,10 @@ class UserAccount extends Component {
         return (
             <div className='user-account'>
                 <Grid centered stackable>
+                  <h1>My Profile</h1>
                     <Grid.Row>
                         <Grid.Column>
                             <Card fluid>
-                                <Image
-                                    src='https://react.semantic-ui.com/images/avatar/large/steve.jpg'
-                                    wrapped ui={false}
-                                />
                                 <Card.Content>
                                     <Card.Header>{this.props.username+"@gmail.com"}</Card.Header>
                                     <Card.Meta>
@@ -63,7 +60,6 @@ class UserAccount extends Component {
                                           :
                                           <Button primary disabled={this.state.disable} size='large' onClick={this.registerCandidate}>{this.state.buttonText}</Button>
                                         }
-
                                     </Card.Description>
                                 </Card.Content>
                                 <Card.Content extra>

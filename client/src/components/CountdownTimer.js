@@ -38,8 +38,6 @@ const ShowCounter = ({ days, hours, minutes, seconds }) => {
 
 const CountdownTimer = (props) => {
   const [days, hours, minutes, seconds] = useCountdown(Number(props.targetDate));
-  console.log(props.targetDate);
-  console.log(days, hours, minutes, seconds);
   if(days + hours + minutes + seconds < -19000)
   {
     return(null);

@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Grid, Image, Button, Input } from 'semantic-ui-react';
+import { Card, Grid, Image, Button, Input, Message } from 'semantic-ui-react';
 import '../App.css';
 import CountdownTimer from './CountdownTimer';
 
@@ -138,35 +138,36 @@ class Admin extends Component {
                   }
                   <Grid.Row>
                   {
-                    (
-                    this.state.unapproved_candidates.map((candidate, index) => {
-                      return(
-                        <>
-                      <Grid.Column key={index}>
-                          <Card>
-                              <Image
-                                  src='https://react.semantic-ui.com/images/avatar/large/steve.jpg'
-                                  wrapped ui={false}
-                              />
-                              <Card.Content>
-                                  <Card.Header>{candidate.name}</Card.Header>
-                                  <Card.Meta>
-                                      <strong>{candidate.approved ? "Candidate" : "Voter"}</strong>
-                                  </Card.Meta>
-                                  <Card.Description>
-                                      <strong>Username: <b> {candidate.name} </b> </strong>
-                                      <br/><br/>
-                                      <Button id={candidate.id} color="blue" size='large' onClick={(e) => this.approve(e)}>Approve</Button>
-                                  </Card.Description>
-                              </Card.Content>
-                          </Card>
-                      </Grid.Column>
-                      </>
-                    )
-                    })
-                  )
+                      (
+                        this.state.unapproved_candidates.map((candidate, index) => {
+                          return(
+                            <>
+                              <Grid.Column key={index}>
+                                  <Card fluid>
+                                      <Card.Content>
+                                          <Card.Header>{candidate.name}</Card.Header>
+                                          <Card.Meta>
+                                              <strong>{candidate.approved ? "Candidate" : "Voter"}</strong>
+                                          </Card.Meta>
+                                          <Card.Description>
+                                              <strong>Username: <b> {candidate.name} </b> </strong>
+                                              <br/><br/>
+                                              <Button id={candidate.id} color="blue" size='large' onClick={(e) => this.approve(e)}>Approve</Button>
+                                          </Card.Description>
+                                      </Card.Content>
+                                      <Card.Content extra>
+                                          <Message size='mini'>
+                                              {candidate.candidate_address}
+                                          </Message>
+                                      </Card.Content>
+                                  </Card>
+                              </Grid.Column>
+                            </>
+                          )
+                          })
+                      )
 
-                  }
+                    }
 
                   </Grid.Row>
                   </Grid>

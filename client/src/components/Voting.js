@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Grid, Image, Button } from 'semantic-ui-react';
+import { Card, Grid, Image, Button, Message } from 'semantic-ui-react';
 import '../App.css';
 import CountdownTimer from './CountdownTimer';
 
@@ -63,7 +63,6 @@ class Voting extends Component {
         }
 
         this.setState({approved_candidates: arr});
-        console.log(this.state);
     }
 
     fetch_election_results = async() =>{
@@ -114,6 +113,7 @@ class Voting extends Component {
        this.hasVoted(event.target.id);
     }
 
+
     render() {
         return (
 
@@ -125,8 +125,9 @@ class Voting extends Component {
 
                 <CountdownTimer targetDate={this.state.endTime} votingProcess={this.state.votingProcess} />
                 <br/>
+                <div class="row">
                 {(this.state.votingProcess && this.state.endTime < this.state.dateNow) ? <Button basic color= "green" size="large" onClick={()=> this.fetch_election_results()}>{this.state.results_button_text}</Button>: null}
-
+               </div>
                   <Grid.Row>
                   {
                     this.state.approved_candidates.map((candidate, index) => {
@@ -137,10 +138,6 @@ class Voting extends Component {
                           (
                             <>
                               <Card fluid className={(this.state.votingResult[0] == candidate.id && this.state.display_results) ? 'electionWinner' : null}>
-                                <Image
-                                    src='https://react.semantic-ui.com/images/avatar/large/steve.jpg'
-                                    wrapped ui={false}
-                                />
                                 <Card.Content>
                                     <Card.Header>{candidate.name}</Card.Header>
                                     <Card.Meta>
@@ -174,6 +171,11 @@ class Voting extends Component {
 
                                     </Card.Description>
                                 </Card.Content>
+                                <Card.Content extra>
+                                    <Message size='mini'>
+                                        {candidate.candidate_address}
+                                    </Message>
+                                </Card.Content>
                               </Card>
                             </>
                           )
@@ -181,10 +183,6 @@ class Voting extends Component {
                           (
                             <>
                             <Card fluid className={((this.state.votingResult[0] == candidate.id || this.state.votingResult[1] == candidate.id) && this.state.display_results) ? 'electionWinner' : null}>
-                              <Image
-                                  src='https://react.semantic-ui.com/images/avatar/large/steve.jpg'
-                                  wrapped ui={false}
-                              />
                               <Card.Content>
                                   <Card.Header>{candidate.name}</Card.Header>
                                   <Card.Meta>

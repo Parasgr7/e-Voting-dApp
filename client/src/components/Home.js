@@ -2,10 +2,34 @@ import React, { Component } from 'react';
 import { Grid, Image } from 'semantic-ui-react';
 import img from '../img/background7.jpeg';
 import '../App.css';
+import { Container, Row, Col, Card } from 'bootstrap-4-react';
+
 
 class Home extends Component {
     render() {
         return (
+
+      //     <Container>
+      //   <Row>
+      //     <Col col="sm">
+      //       <Card style={{ width: '18rem' }}>
+      //           <Card.Header>Feature</Card.Header>
+      //           <Card.Body>
+      //             <Card.Title>Card title</Card.Title>
+      //             <Card.Subtitle mb="2" text="muted">Card subtitle</Card.Subtitle>
+      //             <Card.Text>Some quick example text to build on the card title and make up the bulk of the card's content.</Card.Text>
+      //           </Card.Body>
+      //           <Card.Footer>
+      //             <Card.Link href="#">Another Link</Card.Link>
+      //           </Card.Footer>
+      //         </Card>
+      //
+      //     </Col>
+      //
+      //     <Col col="sm">One of three columns</Col>
+      //     <Col col="sm">One of three columns</Col>
+      //   </Row>
+      // </Container>
             <div className='home-page'>
                 <Grid stackable columns={3} textAlign='left'>
                     <Grid.Row>
