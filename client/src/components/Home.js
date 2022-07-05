@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Grid, Image } from 'semantic-ui-react';
-import img from '../img/background.jpeg';
 import '../App.css';
 
 
@@ -10,7 +9,7 @@ class Home extends Component {
             <div className='home-page'>
                 <Grid stackable textAlign='center'>
                     <Grid.Row>
-                      <p>Decentralized Voting App [DApp]</p>
+                      <div className="homeHeader">Decentralized Voting App [DApp]</div>
                     </Grid.Row>
                     <Grid.Row>
                         <Grid.Column>

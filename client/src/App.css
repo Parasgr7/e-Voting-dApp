@@ -6,7 +6,7 @@
 body {
   color: white!important;
 }
-p{
+div.homeHeader{
   font-size: 50px;
   font-weight: 400;
   background-image: linear-gradient(to bottom, #66ffff, #00ccff);
@@ -151,6 +151,12 @@ span > b.name{
   font-weight: normal;
 }
 
+span > b.tie{
+  color: crimson;
+  font-size: xx-large;
+  font-weight: bolder;
+}
+
 span > b.vote_count{
   color: crimson;
   font-size: larger;
@@ -205,4 +211,8 @@ span > b.vote_count{
   text-transform: uppercase;
   font-size: 0.75rem;
   line-height: 1rem;
+}
+
+.ui.mini.message {
+  overflow-wrap: break-word;
 }

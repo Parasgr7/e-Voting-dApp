@@ -186,8 +186,7 @@ class Voting extends Component {
                                             </Card.Content>
                                             <Card.Content extra>
                                                 <Message size='mini'>
-                                                      {this.state.display_results? <span className="voting">Vote Count: <b className="vote_count"> {candidate.voteCount} </b></span> : null}
-
+                                                    {this.state.display_results? <span className="voting">Vote Count: <b className="vote_count"> {candidate.voteCount} </b></span> : null}
                                                     {candidate.candidate_address}
                                                 </Message>
                                             </Card.Content>
@@ -199,48 +198,35 @@ class Voting extends Component {
                                         <>
                                         <Card fluid className={((this.state.votingResult[0] == candidate.id || this.state.votingResult[1] == candidate.id) && this.state.display_results) ? 'electionWinner' : null}>
                                           <Card.Content>
+                                            {
+                                              (((this.state.votingResult[0] == candidate.id || this.state.votingResult[1] == candidate.id) && this.state.display_results)?
+                                              (
+                                                <>
+                                                  <Grid.Row>
+                                                    <Grid.Column floated="right">
+                                                      <span className="name"> <b className="tie"> TIE </b></span>
+                                                    </Grid.Column>
+                                                  </Grid.Row>
+                                                </>
+                                              )
+
+                                              : null)
+                                            }
                                               <Card.Header>{candidate.name}</Card.Header>
                                               <Card.Meta>
                                                   <strong>{candidate.approved ? "Candidate" : "Voter"}</strong>
                                               </Card.Meta>
                                               <Card.Description>
                                                 <span className="name">Username: <b className="name"> {candidate.name} </b> </span>
-                                                <br/>
-                                                  <br/>
-                                                    <Grid.Row centered>
-                                                      <Grid.Column className="textCenter">
-                                                        {this.state.display_results? <strong>Vote Count: <b> {candidate.voteCount} </b> </strong> : null}
-                                                      </Grid.Column>
-                                                    </Grid.Row>
-                                                  {
-                                                    (((this.state.votingResult[0] == candidate.id || this.state.votingResult[1] == candidate.id) && this.state.display_results)?
-                                                    (
-                                                      <>
-                                                      <Grid.Row centered>
-                                                        <Grid.Column className="textCenter">
-                                                          <b> Tie </b>
-                                                        </Grid.Column>
-                                                      </Grid.Row>
-                                                      <br/>
-                                                        <Grid.Row centered>
-                                                          <Grid.Column className="textCenter">
-                                                            {this.state.userId === candidate.id ? <Button basic color="teal" size='large' onClick={()=> this.claim_gift()}>Claim Gift</Button>: null }
-                                                          </Grid.Column>
-                                                        </Grid.Row>
-                                                      </>
-                                                    )
-
-                                                    : null)
-                                                  }
-
-                                                  <br/>
                                               </Card.Description>
+                                              </Card.Content>
                                               <Card.Content extra>
                                                   <Message size='mini'>
+                                                      {this.state.display_results? <span className="voting">Vote Count: <b className="vote_count"> {candidate.voteCount} </b></span> : null}
                                                       {candidate.candidate_address}
                                                   </Message>
                                               </Card.Content>
-                                          </Card.Content>
+
                                         </Card>
                                         </>
                                       )
