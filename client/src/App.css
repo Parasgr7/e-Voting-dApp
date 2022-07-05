@@ -116,7 +116,6 @@ p{
   border-bottom-left-radius: 2!important;
 }
  .ui.fluid.card {
-   word-wrap: break-word;
    text-align: left;
    border-radius: 1.5rem;
  }
@@ -124,6 +123,38 @@ p{
   border: 3px solid #0feacce6;
   border-radius: 1.5rem;
   background-color: #86c7bee6;
+  background-image: url(./img/winner.jpeg);
+  background-repeat: no-repeat;
+  background-position: top;
+  background-size: 250px;
+}
+
+span.voting{
+  font-size: x-large;
+  color: #177465;
+  font-family: cursive;
+  font-weight: 200;
+}
+span.name{
+  font-size: x-large;
+  font-weight: bold;
+}
+h1.header{
+  font-size: xxx-large;
+  font-weight: lighter;
+  font-family: fangsong;
+}
+
+span > b.name{
+  color: #1522b7;
+  font-size: inherit;
+  font-weight: normal;
+}
+
+span > b.vote_count{
+  color: crimson;
+  font-size: larger;
+  font-weight: 600;
 }
 
 .expired-notice > span {

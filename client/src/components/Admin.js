@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Grid, Image, Button, Input, Message } from 'semantic-ui-react';
+import { Card, Grid, Button, Input, Message } from 'semantic-ui-react';
 import '../App.css';
 import CountdownTimer from './CountdownTimer';
 
@@ -96,7 +96,7 @@ class Admin extends Component {
               <Grid centered stackable>
                 <Grid.Row centered>
                   <Grid.Column className="textCenter">
-                    {this.state.unapproved_candidates.length ===0 ? <h1>No Pending Candidates</h1> : <h1>Pending Candidates</h1>}
+                    {this.state.unapproved_candidates.length ===0 ? <h1 className="header">No Pending Candidates</h1> : <h1 className="header">Pending Candidates</h1>}
                   </Grid.Column>
                 </Grid.Row>
                 <Grid.Row>
@@ -166,7 +166,7 @@ class Admin extends Component {
                                               <strong>{candidate.approved ? "Candidate" : "Voter"}</strong>
                                           </Card.Meta>
                                           <Card.Description>
-                                              <strong>Username: <b> {candidate.name} </b> </strong>
+                                              <span className="name">Username: <b className="name"> {candidate.name} </b> </span>
                                               <br/><br/>
                                               <Button id={candidate.id} color="blue" size='large' onClick={(e) => this.approve(e)}>Approve</Button>
                                           </Card.Description>

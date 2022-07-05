@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Grid, Message, Image, Button, Icon } from 'semantic-ui-react';
+import { Card, Grid, Message, Button, Icon } from 'semantic-ui-react';
 import '../App.css';
 
 class UserAccount extends Component {
@@ -42,7 +42,7 @@ class UserAccount extends Component {
         return (
             <div className='user-account'>
                 <Grid centered stackable>
-                  <h2>My Profile</h2>
+                  <h1 className="header">My Profile</h1>
                     <Grid.Row>
                         <Grid.Column>
                             <Card fluid>
@@ -52,7 +52,7 @@ class UserAccount extends Component {
                                         <strong>{this.state.approved ? "Candidate" : "Voter"}</strong>
                                     </Card.Meta>
                                     <Card.Description>
-                                        <strong>Username: <b> {this.props.username} </b> </strong>
+                                        <span className="name">Username: <b className="name"> {this.props.username} </b> </span>
                                         <br/><br/>
                                         {
                                           this.state.approved ?

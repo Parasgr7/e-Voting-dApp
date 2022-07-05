@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Card, Grid, Image, Button, Message } from 'semantic-ui-react';
 import '../App.css';
+import img from '../img/winner.jpeg';
 import CountdownTimer from './CountdownTimer';
 
 
@@ -119,13 +120,13 @@ class Voting extends Component {
 
             <div className='user-account'>
               <Grid stackable>
-                  {this.state.approved_candidates.length === 0 ? <h1>No Candidates</h1> :
+                  {this.state.approved_candidates.length === 0 ? <h1 className="header">No Candidates</h1> :
                   <Grid.Row>
                   <>
                     <Grid columns={this.state.approved_candidates.length} divided>
                         <Grid.Row centered>
                           <Grid.Column className="textCenter">
-                            {this.state.voted? <h1>Vote Recorded</h1>  : <h1>Cast your vote</h1> }
+                            {this.state.voted? <h1 className="header">Vote Recorded</h1>  : <h1 className="header">Cast your vote</h1> }
                           </Grid.Column>
                         </Grid.Row>
                         <Grid.Row centered>
@@ -149,27 +150,29 @@ class Voting extends Component {
                                         <>
                                           <Card fluid className={(this.state.votingResult[0] == candidate.id && this.state.display_results) ? 'electionWinner' : null}>
                                             <Card.Content>
+                                              {
+                                                ((this.state.votingResult[0] == candidate.id && this.state.display_results)?
+                                                  (
+                                                    <>
+                                                    <Grid.Row>
+                                                      <Grid.Column floated="right">
+                                                        {this.state.userId === candidate.id ? <Button color="blue" size='large' onClick={()=> this.claim_gift()}>Claim Gift</Button>: null }
+                                                      </Grid.Column>
+                                                    </Grid.Row>
+                                                    </>
+                                                  )
+                                                  :
+                                                  null
+                                                )
+                                              }
                                                 <Card.Header>{candidate.name}</Card.Header>
+
                                                 <Card.Meta>
                                                     <strong>{candidate.approved ? "Candidate" : "Voter"}</strong>
                                                 </Card.Meta>
                                                 <Card.Description>
-                                                    <strong>Username: <b> {candidate.name} </b> </strong>
+                                                  <span className="name">Username: <b className="name"> {candidate.name} </b> </span>
                                                     <br/>
-                                                    {this.state.display_results? <strong>Vote Count: <b> {candidate.voteCount} </b> </strong> : null}
-                                                      {
-                                                        ((this.state.votingResult[0] == candidate.id && this.state.display_results)?
-                                                          (
-                                                            <>
-                                                            <b> WINNER </b>
-                                                            <br/>
-                                                            {this.state.userId === candidate.id ? <Button basic color="teal" size='large' onClick={()=> this.claim_gift()}>Claim Gift</Button>: null }
-                                                            </>
-                                                          )
-                                                          :
-                                                          null
-                                                        )
-                                                      }
                                                     <br/>
 
                                                     {
@@ -183,6 +186,8 @@ class Voting extends Component {
                                             </Card.Content>
                                             <Card.Content extra>
                                                 <Message size='mini'>
+                                                      {this.state.display_results? <span className="voting">Vote Count: <b className="vote_count"> {candidate.voteCount} </b></span> : null}
+
                                                     {candidate.candidate_address}
                                                 </Message>
                                             </Card.Content>
@@ -199,16 +204,29 @@ class Voting extends Component {
                                                   <strong>{candidate.approved ? "Candidate" : "Voter"}</strong>
                                               </Card.Meta>
                                               <Card.Description>
-                                                  <strong>Username: <b> {candidate.name} </b> </strong>
+                                                <span className="name">Username: <b className="name"> {candidate.name} </b> </span>
+                                                <br/>
                                                   <br/>
-                                                  {this.state.display_results? <strong>Vote Count: <b> {candidate.voteCount} </b> </strong> : null}
+                                                    <Grid.Row centered>
+                                                      <Grid.Column className="textCenter">
+                                                        {this.state.display_results? <strong>Vote Count: <b> {candidate.voteCount} </b> </strong> : null}
+                                                      </Grid.Column>
+                                                    </Grid.Row>
                                                   {
                                                     (((this.state.votingResult[0] == candidate.id || this.state.votingResult[1] == candidate.id) && this.state.display_results)?
                                                     (
                                                       <>
-                                                      <b> Tie </b>
+                                                      <Grid.Row centered>
+                                                        <Grid.Column className="textCenter">
+                                                          <b> Tie </b>
+                                                        </Grid.Column>
+                                                      </Grid.Row>
                                                       <br/>
-                                                        {this.state.userId === candidate.id ? <Button basic color="teal" size='large' onClick={()=> this.claim_gift()}>Claim Gift</Button>: null }
+                                                        <Grid.Row centered>
+                                                          <Grid.Column className="textCenter">
+                                                            {this.state.userId === candidate.id ? <Button basic color="teal" size='large' onClick={()=> this.claim_gift()}>Claim Gift</Button>: null }
+                                                          </Grid.Column>
+                                                        </Grid.Row>
                                                       </>
                                                     )
 
