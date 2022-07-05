@@ -94,29 +94,34 @@ class Admin extends Component {
         return (
             <div className='user-account'>
               <Grid centered stackable>
-              {
-                this.state.unapproved_candidates.length ===0 ? <h2>No Pending Candidates</h2> : <h2>Pending Candidates</h2>
-              }
-              <br/><br/>
+                <Grid.Row centered>
+                  <Grid.Column className="textCenter">
+                    {this.state.unapproved_candidates.length ===0 ? <h1>No Pending Candidates</h1> : <h1>Pending Candidates</h1>}
+                  </Grid.Column>
+                </Grid.Row>
                 <Grid.Row>
             {
               (<>
               <Grid columns={this.state.unapproved_candidates.length} divided>
-
                 {
                   (this.state.endTime === 0 && this.state.startTime === 0 && !this.state.votingProcess && this.state.approved_candidates.length >= 2) ?
-                    <Input action={{
-                        color: 'teal',
-                        labelPosition: 'left',
-                        icon: 'clock outline',
-                        content: 'Start Voting',
-                        onClick: () => this.startVoting()
-                      }}
-                    onChange={this.handleInputChange}
-                    actionPosition='left'
-                    defaultValue={this.state.votingTimePeriod}
-                    placeholder='Time period (mins)'
-                    />
+                    <Grid.Row centered>
+                      <Grid.Column className="textCenter">
+                        <Input action={{
+                            color: 'teal',
+                            labelPosition: 'left',
+                            icon: 'clock outline',
+                            content: 'Start Voting',
+                            onClick: () => this.startVoting()
+                          }}
+                        onChange={this.handleInputChange}
+                        actionPosition='left'
+                        defaultValue={this.state.votingTimePeriod}
+                        placeholder='Time period (mins)'
+                        />
+                      </Grid.Column>
+                    </Grid.Row>
+
                   :
                   (
                       <>
@@ -124,14 +129,23 @@ class Admin extends Component {
                         {
                             ((this.state.dateNow > this.state.endTime) && this.state.votingProcess)?
                           (
+
                             <>
-                            <Button inverted color='red' onClick={this.stopVoting}>End Election</Button>
+                            <Grid.Row centered>
+                              <Grid.Column className="textCenter">
+                                <Button color='red' size="large" onClick={this.stopVoting}>End Election</Button>
+                              </Grid.Column>
+                            </Grid.Row>
                             </>
                           )
                           :
                           (
                               <>
-                                <CountdownTimer targetDate={this.state.endTime} votingProcess={this.state.votingProcess} />
+                                <Grid.Row centered>
+                                  <Grid.Column>
+                                    <CountdownTimer targetDate={this.state.endTime} votingProcess={this.state.votingProcess} />
+                                  </Grid.Column>
+                                </Grid.Row>
                               </>
                           )
                         }

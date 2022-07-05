@@ -2820,19 +2820,6 @@
   "resolved" "https://registry.npmjs.org/boolbase/-/boolbase-1.0.0.tgz"
   "version" "1.0.0"
 
-"bootstrap-4-react@^0.0.59":
-  "integrity" "sha512-j3a618tWHl/ajYQi6zn0LdVfksRH+gyQ4RwIanTPin6xkHkgYfk+47ZlHFSwyiO9zVFn4xznoGjTwWA0AIlJkA=="
-  "resolved" "https://registry.npmjs.org/bootstrap-4-react/-/bootstrap-4-react-0.0.59.tgz"
-  "version" "0.0.59"
-  dependencies:
-    "bootstrap-4-required" "0.0.1"
-    "fsts" "0.0.44"
-
-"bootstrap-4-required@0.0.1":
-  "integrity" "sha512-4S6Trn9pRVSR756GRYr3hy2cZL3Vc0tw0/H9E+mbNeOR+4tn6CeRgcLx0YqZmL2XlabtEV73+XAesmwkgTDKvQ=="
-  "resolved" "https://registry.npmjs.org/bootstrap-4-required/-/bootstrap-4-required-0.0.1.tgz"
-  "version" "0.0.1"
-
 "brace-expansion@^1.1.7":
   "integrity" "sha512-iCuPHDFgrHX7H2vEI/5xpz07zSHB00TpugqhmYtVmMO6518mCuRMoOYFldEBl0g187ufozdaHgWKcYFb61qGiA=="
   "resolved" "https://registry.npmjs.org/brace-expansion/-/brace-expansion-1.1.11.tgz"
@@ -5771,11 +5758,6 @@
   "integrity" "sha512-a7YT0SV3RB+DjYcppwVDLtn13UQnmg0SWZS7ezZD0UjnLwXmy8Zm21GMVGLaFGimIqcvyMQaOJBrop8MyOp1kQ=="
   "resolved" "https://registry.npmjs.org/fsevents/-/fsevents-2.0.7.tgz"
   "version" "2.0.7"
-
-"fsts@0.0.44":
-  "integrity" "sha512-0U4qvbzOE+3s2711DdszIyaAnZ3M0dbFAhnkez/ITy31MwzDI2lepGSkVeFOyx6jqWvwaSZr01RP4hdM4I8wxQ=="
-  "resolved" "https://registry.npmjs.org/fsts/-/fsts-0.0.44.tgz"
-  "version" "0.0.44"
 
 "function-bind@^1.1.1":
   "integrity" "sha512-yIovAzMX49sF8Yl58fSCWJ5svSLuaibPxXQJFLmBObTuCr0Mf1KiPopGM9NiFjiYBCbfaa2Fh6breQ6ANVTI0A=="

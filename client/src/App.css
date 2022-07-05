@@ -6,7 +6,15 @@
 body {
   color: white!important;
 }
+p{
+  font-size: 50px;
+  font-weight: 400;
+  background-image: linear-gradient(to bottom, #66ffff, #00ccff);
+  color: transparent;
+  background-clip: text;
+  -webkit-background-clip: text;
 
+}
 .App {
   text-align: center;
   height: 150vh;
@@ -15,14 +23,9 @@ body {
   word-spacing: 1px;
   line-height: 1.45em;
   /* font-family: "Ubuntu", "Sharp Sans No1", Sans-serif; */
-  background-image: linear-gradient(
-      to right bottom,
-      rgba(32, 32, 31, 0.98),
-      rgba(11, 17, 20, 0.98)
-    ),
-    url(./img/background4.jpeg);
-  background-size: cover;
-  background-position: top;
+  background-image: url(./img/blockchain.jpeg);
+  background-size: inherit;
+  background-position: inherit;
 }
 
 .App-logo {
@@ -84,16 +87,20 @@ body {
 .user-account {
   display: flex;
   justify-content: center;
-  width: 20%;
-  padding-top: 40px;
-  margin-left: auto;
-  margin-right: auto;
-  min-width: 400px;
-  flex-wrap: wrap;
+  padding-top: 50px;
+  padding-left: 40px;
+  padding-right: 30px;
 }
 
+.textCenter{
+  text-align: center!important;
+}
 .user-card {
   margin-top: 30px;
+}
+
+.button{
+  border-radius: 25px!important;
 }
 
 .expired-notice {
@@ -103,14 +110,20 @@ body {
   border-radius: 0.25rem;
   margin: 0.5rem; */
 }
-
+.ui[class*="left action"].input>input {
+  border-radius: 25px!important;
+  border-bottom-left-radius: 2!important;
+  border-bottom-left-radius: 2!important;
+}
  .ui.fluid.card {
    word-wrap: break-word;
+   text-align: left;
+   border-radius: 1.5rem;
  }
  .ui.fluid.card.electionWinner{
-  border: 5px solid #023020;
-  border-radius: 1.25rem;
-  /* word-wrap: break-word; */
+  border: 3px solid #0feacce6;
+  border-radius: 1.5rem;
+  background-color: #86c7bee6;
 }
 
 .expired-notice > span {
@@ -132,7 +145,7 @@ body {
   justify-content: center;
   align-items: center;
   font-weight: 700;
-  font-size: 1.25rem;
+  font-size: 2rem;
   line-height: 1.75rem;
   padding: 0.5rem;
   border: 2px solid #ebebeb;
