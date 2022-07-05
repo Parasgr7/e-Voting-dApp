@@ -68,14 +68,15 @@ class App extends Component {
           account: accounts[0],
           loggedIn: false
         });
+        console.log(this.state);
         window.localStorage.removeItem('loggedIn');
         window.localStorage.removeItem('username');
 
-        this.state.web3.eth.getBalance(accounts[0], (err, balance) => {
-          if (!err) {
-            this.setState({ balance: Formate(this.state.web3.utils.fromWei(balance, 'ether')) });
-          }
-        });
+        // this.state.web3.eth.getBalance(accounts[0], (err, balance) => {
+        //   if (!err) {
+        //     this.setState({ balance: Formate(this.state.web3.utils.fromWei(balance, 'ether')) });
+        //   }
+        // });
       });
     }
   }
@@ -307,6 +308,12 @@ class App extends Component {
                         <SignOut loggedOut={this.loggedOut}/>
                       </Route>
                       <Route path='/user-account'>
+                        You have been logged out
+                      </Route>
+                      <Route path='/admin'>
+                        You have been logged out
+                      </Route>
+                      <Route path='/vote'>
                         You have been logged out
                       </Route>
                     </>

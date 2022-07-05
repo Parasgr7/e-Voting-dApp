@@ -93,14 +93,16 @@ class Admin extends Component {
     render() {
         return (
             <div className='user-account'>
-
+              <Grid centered stackable>
+              {
+                this.state.unapproved_candidates.length ===0 ? <h2>No Pending Candidates</h2> : <h2>Pending Candidates</h2>
+              }
+              <br/><br/>
+                <Grid.Row>
             {
               (<>
               <Grid columns={this.state.unapproved_candidates.length} divided>
-                {
-                  this.state.unapproved_candidates.length ===0 ? <h1>No Pending Candidates</h1> : <h1>Pending Candidates</h1>
-                }
-                <br/><br/>
+
                 {
                   (this.state.endTime === 0 && this.state.startTime === 0 && !this.state.votingProcess && this.state.approved_candidates.length >= 2) ?
                     <Input action={{
@@ -176,7 +178,10 @@ class Admin extends Component {
              }
 
 
-            </div>
+
+          </Grid.Row>
+        </Grid>
+        </div>
         );
     }
 }
