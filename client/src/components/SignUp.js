@@ -17,7 +17,6 @@ class SignUp extends Component {
     }
 
     onSignUp = async () => {
-        this.setState({isloading: true});
         if (this.state.username !== '' && this.state.password !== '' && this.state.digicode !== '') {
             let username = this.state.username.trim();
             let password = this.state.password.trim();
@@ -57,6 +56,7 @@ class SignUp extends Component {
 
                     return;
                 } else {
+                    this.setState({isloading: true});
                     let hash = await AuthenticationHash(username, this.props.account, password, digicode, this.props.web3);
 
                     await this.props.contract.methods.register(hash).send({ from: this.props.account }).then(()=>{

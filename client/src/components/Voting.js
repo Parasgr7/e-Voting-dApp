@@ -124,7 +124,7 @@ class Voting extends Component {
     claim_gift = async () =>{
       this.setState({isloading: true});
       await this.props.contract.methods.claim_gift().send({ from: this.props.account, gas: '4700000' }).then(()=>{
-        this.setState({isloading: false,claim_gift_text: "1 Ether Received", claim_gift_disabled: true, gift_claimed: true});
+        this.setState({isloading: false,claim_gift_text: "10 Ether Received", claim_gift_disabled: true, gift_claimed: true});
       });
     }
 
@@ -170,13 +170,14 @@ class Voting extends Component {
                                                     <>
                                                     <Grid.Row>
                                                       <Grid.Column floated="right">
-                                                        {"HEY",this.state.gift_claimed}
                                                         {this.state.gift_claimed ?
-                                                          <Button disabled="true" className="claim_gift" size='large'><Icon name="check"/>1 Ether Received</Button>
+                                                          <Button disabled="true" className="claim_gift" size='large'><Icon name="check"/>10 Ether Received</Button>
                                                             :
                                                             (<>
                                                               {(this.state.userId === candidate.id) ?
-                                                                (<><Button disabled={this.state.claim_gift_disabled} color="blue" className={this.state.claim_gift_disabled ? "claim_gift" : null} size='large' onClick={()=> this.claim_gift()}>{this.state.claim_gift_disabled ? <Icon name="check"/> : null}{this.state.claim_gift_text}</Button></>)
+                                                                (<>
+                                                                  <Button disabled={this.state.claim_gift_disabled} color="blue" className={this.state.claim_gift_disabled ? "claim_gift" : null} size='large' onClick={()=> this.claim_gift()}>{this.state.claim_gift_disabled ? <Icon name="check"/> : null}{this.state.claim_gift_text}</Button>
+                                                                  </>)
                                                                 : null }
                                                             </>)
                                                           }

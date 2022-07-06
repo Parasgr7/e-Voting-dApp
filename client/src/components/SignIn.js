@@ -17,7 +17,7 @@ class SignIn extends Component {
     }
 
     onSignIn = async () => {
-        this.setState({isloading: true});
+
         if (this.state.username !== '' && this.state.password !== '' && this.state.digicode !== '') {
             let username = this.state.username.trim();
             let password = this.state.password.trim();
@@ -46,9 +46,7 @@ class SignIn extends Component {
               }
             else
             {
-                let userAddress = await this.props.contract.methods.getUserAddress().call({ from: this.props.account }).then(()=>{
-                  this.setState({isloading: false});
-                });
+                let userAddress = await this.props.contract.methods.getUserAddress().call({ from: this.props.account });
 
                 if (userAddress === '0x0000000000000000000000000000000000000000') {
                     this.setState({
@@ -60,6 +58,7 @@ class SignIn extends Component {
                     });
                     return;
                 } else {
+                    this.setState({isloading: true});
                     let validated = await
                         AuthValidation(
                             username,
