@@ -13,7 +13,11 @@ div.homeHeader{
   color: transparent;
   background-clip: text;
   -webkit-background-clip: text;
+  padding-bottom: 2rem;
 
+}
+.column.pads{
+  padding-bottom: 2rem;
 }
 .App {
   text-align: center;
@@ -105,10 +109,6 @@ div.homeHeader{
 
 .expired-notice {
   text-align: center;
-  padding: 2rem;
-  /* border: 2px solid #ebebeb;
-  border-radius: 0.25rem;
-  margin: 0.5rem; */
 }
 .ui[class*="left action"].input>input {
   border-radius: 25px!important;
@@ -140,7 +140,7 @@ span.name{
   font-weight: bold;
 }
 h1.header{
-  font-size: xxx-large;
+  font-size: 40px;
   font-weight: lighter;
   font-family: fangsong;
 }

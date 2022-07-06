@@ -105,7 +105,7 @@ class SignIn extends Component {
     render() {
         return (
             <div className="sign-up">
-                Sign in to your account
+                <h1 className="header">Sign in to your account</h1>
                 <div className='signup-form'>
                     <Card fluid centered>
                         <Card.Content>

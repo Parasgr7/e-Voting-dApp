@@ -308,13 +308,13 @@ class App extends Component {
                         <SignOut loggedOut={this.loggedOut}/>
                       </Route>
                       <Route path='/user-account'>
-                        You have been logged out
+                        <h1 className="header">You have been logged out</h1>
                       </Route>
                       <Route path='/admin'>
-                        You have been logged out
+                        <h1 className="header">You have been logged out</h1>
                       </Route>
                       <Route path='/vote'>
-                        You have been logged out
+                        <h1 className="header">You have been logged out</h1>
                       </Route>
                     </>
                   )

@@ -6,7 +6,6 @@ const ExpiredNotice = () => {
   return (
     <div className="expired-notice">
       <span>Voting Time Expired!!!</span>
-
     </div>
   );
 };
@@ -15,7 +14,6 @@ const Loading = () => {
   return (
     <div className="loading">
       <span>Loading...</span>
-
     </div>
   );
 };

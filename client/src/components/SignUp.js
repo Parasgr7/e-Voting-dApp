@@ -46,7 +46,7 @@ class SignUp extends Component {
 
                 if (userAddress !== '0x0000000000000000000000000000000000000000') {
                     this.setState({
-                        alertMessage: 'this account already exists',
+                        alertMessage: 'This account already exists',
                         status: 'failed',
                         username: '',
                         password: '',
@@ -71,7 +71,7 @@ class SignUp extends Component {
                     this.props.accountCreated(this.state.signedUp);
                     return;
                 }
-            }
+              }
         }
 
     }
@@ -79,7 +79,7 @@ class SignUp extends Component {
     render() {
         return (
             <div className="sign-up">
-                Create an account
+                <h1 className="header">Create an account</h1>
                 <div className='signup-form'>
                     <Card fluid centered>
                         <Card.Content>

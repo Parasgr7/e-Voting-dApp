@@ -42,7 +42,7 @@ class UserAccount extends Component {
         return (
             <div className='user-account'>
                 <Grid centered stackable>
-                  <h1 className="header">My Profile</h1>
+                  <h1 className="header">User Profile</h1>
                     <Grid.Row>
                         <Grid.Column>
                             <Card fluid>

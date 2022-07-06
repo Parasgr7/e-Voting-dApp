@@ -123,7 +123,7 @@ class Voting extends Component {
                   {this.state.approved_candidates.length === 0 ? <h1 className="header">No Candidates</h1> :
                   <Grid.Row>
                   <>
-                    <Grid columns={this.state.approved_candidates.length} divided>
+                    <Grid columns={this.state.approved_candidates.length <= 3 ? this.state.approved_candidates.length : 4} divided>
                         <Grid.Row centered>
                           <Grid.Column className="textCenter">
                             {this.state.voted? <h1 className="header">Vote Recorded</h1>  : <h1 className="header">Cast your vote</h1> }
@@ -143,7 +143,7 @@ class Voting extends Component {
                           {
                             this.state.approved_candidates.map((candidate, index) => {
                               return(
-                                  <Grid.Column key = {candidate.id} >
+                                  <Grid.Column key={index} className="pads" >
                                     {
                                       this.state.votingResult.length === 1 ?
                                       (
@@ -186,7 +186,7 @@ class Voting extends Component {
                                             </Card.Content>
                                             <Card.Content extra>
                                                 <Message size='mini'>
-                                                    {this.state.display_results? <span className="voting">Vote Count: <b className="vote_count"> {candidate.voteCount} </b></span> : null}
+                                                    {this.state.display_results? <><span className="voting">Vote Count: <b className="vote_count"> {candidate.voteCount} </b></span> <br/></> : null}
                                                     {candidate.candidate_address}
                                                 </Message>
                                             </Card.Content>
