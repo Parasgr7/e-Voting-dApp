@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Card, Grid, Button, Input, Message } from 'semantic-ui-react';
 import '../App.css';
 import CountdownTimer from './CountdownTimer';
+import LoadingAnimation from 'react-circle-loading-animation';
 
 
 class Admin extends Component {
@@ -18,6 +19,7 @@ class Admin extends Component {
       endTime: 1,
       votingProcess: false,
       votingTimePeriod: 1,
+      isloading:false,
       dateNow: Math.floor((new Date().getTime())/1000)
     }
 
@@ -63,17 +65,29 @@ class Admin extends Component {
     }
 
     approve= async (event) => {
+        this.setState({isloading: true});
         event.persist();
-        await this.props.contract.methods.approve(event.target.id).send({ from: this.props.account });
-        event.target.innerText = "Approved";
-        event.target.disabled = 1;
-        event.target.style.background = "green";
-        // this.fetch_candidates_data();
+        await this.props.contract.methods.approve(event.target.id).send({ from: this.props.account }).then((tx)=>{
+          console.log(tx);
+          this.setState({isloading: false});
+          event.target.innerText = "Approved";
+          event.target.disabled = 1;
+          event.target.style.background = "green";
+        }).catch(e => {
+         if (e.code === 4001){
+            this.setState({isloading: false});
+
+         }
+       });
+
 
     }
 
     startVoting = async()=> {
-      await this.props.contract.methods.startVote(this.state.votingTimePeriod).send({ from: this.props.account });
+      this.setState({isloading: true});
+      await this.props.contract.methods.startVote(this.state.votingTimePeriod).send({ from: this.props.account }).then(()=>{
+        this.setState({isloading: false});
+      });;
       var endTime = await this.props.contract.methods.endTime().call({ from: this.props.account });
 
       this.setState({votingProcess: true, endTime: endTime});
@@ -81,9 +95,10 @@ class Admin extends Component {
     }
 
     stopVoting = async()=> {
-      await this.props.contract.methods.stopVote().send({ from: this.props.account });
-      this.setState({votingProcess: false});
-      console.log(this.state);
+      this.setState({isloading: true});
+      await this.props.contract.methods.stopVote().send({ from: this.props.account }).then(()=>{
+        this.setState({isloading: false,votingProcess: false});
+      });
     }
 
     handleInputChange = e => {
@@ -93,6 +108,7 @@ class Admin extends Component {
     render() {
         return (
             <div className='user-account'>
+              <LoadingAnimation isLoading={this.state.isloading} />
               <Grid stackable>
                 <Grid.Row centered>
                   <Grid.Column className="textCenter">

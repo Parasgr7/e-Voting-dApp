@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { Card, Grid, Message, Button, Icon } from 'semantic-ui-react';
+import LoadingAnimation from 'react-circle-loading-animation';
 import '../App.css';
 
 class UserAccount extends Component {
@@ -10,6 +11,7 @@ class UserAccount extends Component {
       buttonText: 'Register as Candidate',
       candidate_id: null ,
       approved: false,
+      isloading:false
     }
   }
     componentDidMount = async () => {
@@ -35,12 +37,15 @@ class UserAccount extends Component {
     }
 
     registerCandidate = async () => {
-      await this.props.contract.methods.registerCandidate(this.props.username).send({ from: this.props.account });
-      this.setState({disable: true, buttonText: "Candidate Approval Pending..." });
+      this.setState({isloading: true});
+      await this.props.contract.methods.registerCandidate(this.props.username).send({ from: this.props.account }).then((res) => {
+        this.setState({disable: true, buttonText: "Candidate Approval Pending...",isloading: false });
+      });
     }
     render() {
         return (
             <div className='user-account'>
+              <LoadingAnimation isLoading={this.state.isloading} />
                 <Grid centered stackable>
                   <h1 className="header">User Profile</h1>
                     <Grid.Row>
@@ -58,7 +63,9 @@ class UserAccount extends Component {
                                           this.state.approved ?
                                           <Button color="green" size='large'> <Icon name="check"/>Approved</Button>
                                           :
-                                          <Button primary disabled={this.state.disable} size='large' onClick={this.registerCandidate}>{this.state.buttonText}</Button>
+                                          (<>
+                                        <Button primary disabled={this.state.disable} size='large' onClick={this.registerCandidate}>{this.state.buttonText}</Button>
+                                        </>)
                                         }
                                     </Card.Description>
                                 </Card.Content>

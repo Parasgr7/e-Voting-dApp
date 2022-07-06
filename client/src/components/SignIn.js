@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { Form, Button, Card, Message } from 'semantic-ui-react';
 import AuthValidation from '../utils/AuthValidation';
 import "../App.css";
+import LoadingAnimation from 'react-circle-loading-animation';
 
 class SignIn extends Component {
     state = {
@@ -11,11 +12,12 @@ class SignIn extends Component {
         digicode: '123456',
         alertMessage: '',
         status: '',
-        loggedIn: false
+        loggedIn: false,
+        isloading:false
     }
 
     onSignIn = async () => {
-
+        this.setState({isloading: true});
         if (this.state.username !== '' && this.state.password !== '' && this.state.digicode !== '') {
             let username = this.state.username.trim();
             let password = this.state.password.trim();
@@ -44,7 +46,9 @@ class SignIn extends Component {
               }
             else
             {
-                let userAddress = await this.props.contract.methods.getUserAddress().call({ from: this.props.account });
+                let userAddress = await this.props.contract.methods.getUserAddress().call({ from: this.props.account }).then(()=>{
+                  this.setState({isloading: false});
+                });
 
                 if (userAddress === '0x0000000000000000000000000000000000000000') {
                     this.setState({
@@ -105,6 +109,7 @@ class SignIn extends Component {
     render() {
         return (
             <div className="sign-up">
+              <LoadingAnimation isLoading={this.state.isloading} />
                 <h1 className="header">Sign in to your account</h1>
                 <div className='signup-form'>
                     <Card fluid centered>

@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import { Card, Grid, Button, Message, Icon } from 'semantic-ui-react';
 import '../App.css';
 import CountdownTimer from './CountdownTimer';
-
+import LoadingAnimation from 'react-circle-loading-animation';
 
 class Voting extends Component {
   constructor() {
@@ -27,6 +27,7 @@ class Voting extends Component {
       claim_gift_disabled: false,
       votingPeriod: false,
       gift_claimed: false,
+      isloading:false,
       userId: window.localStorage.getItem('userId') || '',
       dateNow: Math.floor((new Date().getTime())/1000)
 
@@ -48,8 +49,7 @@ class Voting extends Component {
         var startTime = await this.props.contract.methods.startTime().call({ from: this.props.account });
         var endTime = await this.props.contract.methods.endTime().call({ from: this.props.account });
         var votingProcess = await this.props.contract.methods.votingProcess().call({ from: this.props.account });
-        // var gift_claimed = await this.props.contract.methods.gift_claimed().call({ from: this.props.account });
-        var gift_claimed = true;
+        var gift_claimed = await this.props.contract.methods.gift_claimed().call({ from: this.props.account });
 
         this.setState({
           candidates_count: Number(candidates_count),
@@ -58,6 +58,7 @@ class Voting extends Component {
           votingProcess: votingProcess,
           gift_claimed : gift_claimed
         });
+        console.log(this.state);
 
         var arr = [];
         for(var i=1; i<= this.state.candidates_count; i++ )
@@ -112,24 +113,26 @@ class Voting extends Component {
     }
 
     cast_vote = async (event) => {
+       this.setState({isloading: true});
        event.persist();
-       await this.props.contract.methods.vote(event.target.id).send({ from: this.props.account});
-       // event.target.innerText = "Success";
-       // event.target.style.background = "green";
-       // this.setState({disable: 1, color:"red"});
+       await this.props.contract.methods.vote(event.target.id).send({ from: this.props.account}).then(()=>{
+         this.setState({isloading: false});
+       });
        this.hasVoted(event.target.id);
     }
 
     claim_gift = async () =>{
-      // await this.props.contract.methods.claim_gift().send({ from: this.props.account, gas: '4700000' });
-      this.setState({claim_gift_text: "1 Ether Received", claim_gift_disabled: true, gift_claimed: true});
+      this.setState({isloading: true});
+      await this.props.contract.methods.claim_gift().send({ from: this.props.account, gas: '4700000' }).then(()=>{
+        this.setState({isloading: false,claim_gift_text: "1 Ether Received", claim_gift_disabled: true, gift_claimed: true});
+      });
     }
 
 
     render() {
         return (
-
             <div className='user-account'>
+              <LoadingAnimation isLoading={this.state.isloading} />
               <Grid stackable>
                   {this.state.approved_candidates.length === 0 ? <h1 className="header">No Candidates</h1> :
                   <Grid.Row>
@@ -167,6 +170,7 @@ class Voting extends Component {
                                                     <>
                                                     <Grid.Row>
                                                       <Grid.Column floated="right">
+                                                        {"HEY",this.state.gift_claimed}
                                                         {this.state.gift_claimed ?
                                                           <Button disabled="true" className="claim_gift" size='large'><Icon name="check"/>1 Ether Received</Button>
                                                             :

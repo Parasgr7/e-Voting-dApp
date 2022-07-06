@@ -7,6 +7,7 @@
     "dotenv": "^6.2.0",
     "ipfs-mini": "^1.1.5",
     "react": "16.11.0",
+    "react-circle-loading-animation": "^0.0.3",
     "react-dom": "16.11.0",
     "react-router-dom": "^5.2.0",
     "react-scripts": "3.2.0",
