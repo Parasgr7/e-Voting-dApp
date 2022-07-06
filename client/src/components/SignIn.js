@@ -36,7 +36,7 @@ class SignIn extends Component {
              if (digicode.length !== 6)
              {
                 this.setState({
-                    alertMessage: "6 digit required for digicode",
+                    alertMessage: "National Identification No. (6 Digits)",
                     status: 'failed',
                     digicode: ''
                 });
@@ -142,7 +142,7 @@ class SignIn extends Component {
                                 <Form.Field required>
                                     <input
                                         type='text'
-                                        placeholder='6 digit code'
+                                        placeholder='National Identification No. (6 Digits)'
                                         value={this.state.digicode}
                                         autoComplete="digicode"
                                         onChange={e => this.setState({ digicode: e.target.value })}

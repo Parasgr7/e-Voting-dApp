@@ -41,7 +41,7 @@ class App extends Component {
       const auth_contract = await Contract(web3);
       const election_contract = await Election(web3);
       const accounts = await window.ethereum.request({ method: 'eth_requestAccounts' });
-      const admin_address_upper = await election_contract.methods.admin_address().call({ from: accounts[0].toLowerCase()});
+      const admin_address_upper = await election_contract.methods.contract_owner().call({ from: accounts[0].toLowerCase()});
       const admin_address = admin_address_upper.toLowerCase();
 
       this.setState({ web3, auth_contract, election_contract, account: accounts[0], admin_address }, this.start);
@@ -68,7 +68,6 @@ class App extends Component {
           account: accounts[0],
           loggedIn: false
         });
-        console.log(this.state);
         window.localStorage.removeItem('loggedIn');
         window.localStorage.removeItem('username');
 

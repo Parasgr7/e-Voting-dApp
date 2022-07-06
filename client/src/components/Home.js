@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, Image } from 'semantic-ui-react';
+import { Grid } from 'semantic-ui-react';
 import '../App.css';
 
 

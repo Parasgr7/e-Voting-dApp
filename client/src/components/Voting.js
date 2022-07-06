@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { Card, Grid, Image, Button, Message } from 'semantic-ui-react';
+import { Card, Grid, Button, Message, Icon } from 'semantic-ui-react';
 import '../App.css';
-import img from '../img/winner.jpeg';
 import CountdownTimer from './CountdownTimer';
 
 
@@ -23,7 +22,11 @@ class Voting extends Component {
       buttonText: "Vote",
       display_results: false,
       results_button_text: 'Show Results',
+      claim_gift_text: 'Claim Gift',
+      claim_gift_button: "blue",
+      claim_gift_disabled: false,
       votingPeriod: false,
+      gift_claimed: false,
       userId: window.localStorage.getItem('userId') || '',
       dateNow: Math.floor((new Date().getTime())/1000)
 
@@ -45,12 +48,15 @@ class Voting extends Component {
         var startTime = await this.props.contract.methods.startTime().call({ from: this.props.account });
         var endTime = await this.props.contract.methods.endTime().call({ from: this.props.account });
         var votingProcess = await this.props.contract.methods.votingProcess().call({ from: this.props.account });
+        // var gift_claimed = await this.props.contract.methods.gift_claimed().call({ from: this.props.account });
+        var gift_claimed = true;
 
         this.setState({
           candidates_count: Number(candidates_count),
           startTime: Number(startTime),
           endTime: Number(endTime),
-          votingProcess: votingProcess
+          votingProcess: votingProcess,
+          gift_claimed : gift_claimed
         });
 
         var arr = [];
@@ -114,6 +120,11 @@ class Voting extends Component {
        this.hasVoted(event.target.id);
     }
 
+    claim_gift = async () =>{
+      // await this.props.contract.methods.claim_gift().send({ from: this.props.account, gas: '4700000' });
+      this.setState({claim_gift_text: "1 Ether Received", claim_gift_disabled: true, gift_claimed: true});
+    }
+
 
     render() {
         return (
@@ -156,7 +167,16 @@ class Voting extends Component {
                                                     <>
                                                     <Grid.Row>
                                                       <Grid.Column floated="right">
-                                                        {this.state.userId === candidate.id ? <Button color="blue" size='large' onClick={()=> this.claim_gift()}>Claim Gift</Button>: null }
+                                                        {this.state.gift_claimed ?
+                                                          <Button disabled="true" className="claim_gift" size='large'><Icon name="check"/>1 Ether Received</Button>
+                                                            :
+                                                            (<>
+                                                              {(this.state.userId === candidate.id) ?
+                                                                (<><Button disabled={this.state.claim_gift_disabled} color="blue" className={this.state.claim_gift_disabled ? "claim_gift" : null} size='large' onClick={()=> this.claim_gift()}>{this.state.claim_gift_disabled ? <Icon name="check"/> : null}{this.state.claim_gift_text}</Button></>)
+                                                                : null }
+                                                            </>)
+                                                          }
+
                                                       </Grid.Column>
                                                     </Grid.Row>
                                                     </>

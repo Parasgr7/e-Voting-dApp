@@ -6,8 +6,7 @@ const Contract = async (web3) => {
 
     return new web3.eth.Contract(
         Election.abi,
-        deployedNetwork && deployedNetwork.address
-    );
+        deployedNetwork && deployedNetwork.address);
 }
 
 export default Contract;

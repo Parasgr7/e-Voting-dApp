@@ -119,7 +119,7 @@ class SignUp extends Component {
                                     <input
                                         required
                                         type='text'
-                                        placeholder='6 digit code'
+                                        placeholder='National Identification No. (6 Digits)'
                                         value={this.state.digicode}
                                         autoComplete="digicode"
                                         onChange={e => this.setState({ digicode: e.target.value })}

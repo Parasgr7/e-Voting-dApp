@@ -129,6 +129,11 @@ div.homeHeader{
   background-size: 250px;
 }
 
+.ui.disabled.button.claim_gift{
+  background-color: #c0e660;
+  opacity: 1!important;
+}
+
 span.voting{
   font-size: x-large;
   color: #177465;
