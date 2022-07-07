@@ -135,7 +135,7 @@ class Admin extends Component {
     render() {
         return (
             <div className='user-account'>
-              <ToastContainer toastStyle={{ backgroundColor: "#4298d3" }}/>
+              <ToastContainer toastStyle={{ backgroundColor: "#327F94" }}/>
               <LoadingAnimation isLoading={this.state.isloading} />
               <Grid stackable>
                 <Grid.Row centered>

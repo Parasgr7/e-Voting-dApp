@@ -1,9 +1,12 @@
 import React, { Component } from 'react';
-import { Card, Grid, Message, Button, Icon } from 'semantic-ui-react';
+import { Card, Grid, Message, Button, Icon, Image } from 'semantic-ui-react';
 import LoadingAnimation from 'react-circle-loading-animation';
 import '../App.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {create} from 'ipfs-http-client';
+
+const client = create({ host: "ipfs.infura.io", port: 5001, protocol: "https"});
 
 class UserAccount extends Component {
   constructor() {
@@ -13,7 +16,10 @@ class UserAccount extends Component {
       buttonText: 'Register as Candidate',
       candidate_id: null ,
       approved: false,
-      isloading:false
+      isloading:false,
+      file: null,
+      urlArr: [],
+      filename: null,
     }
   }
     componentDidMount = async () => {
@@ -55,16 +61,53 @@ class UserAccount extends Component {
         }
       });
     }
+
+     retrieveFile = (e) => {
+      const data = e.target.files[0];
+      this.setState({filename: data.name});
+      const reader = new window.FileReader();
+      reader.readAsArrayBuffer(data);
+      reader.onloadend = () => {
+        this.setState({file: reader.result});
+      }
+
+      e.preventDefault();
+    }
+
+    handleSubmit = async (e) => {
+      e.preventDefault();
+
+      try {
+        const created = await client.add(this.state.file);
+        const url = `https://ipfs.infura.io/ipfs/${created.path}`;
+        this.setState({urlArr: [...this.state.urlArr, url]});
+      } catch (error) {
+        console.log(error);
+      }
+    };
+
+
     render() {
         return (
             <div className='user-account'>
-              <ToastContainer toastStyle={{ backgroundColor: "#4298d3" }}/>
+              <ToastContainer toastStyle={{ backgroundColor: "#327F94" }}/>
               <LoadingAnimation isLoading={this.state.isloading} />
                 <Grid centered stackable>
                   <h1 className="header">User Profile</h1>
                     <Grid.Row>
                         <Grid.Column>
                             <Card fluid>
+                                <form className="form" onSubmit={this.handleSubmit}>
+                                 <input type="file" name="data" onChange={this.retrieveFile} />
+                                 <button type="submit" className="btn">Upload file</button>
+                               </form>
+                               <div className="display">
+                                 {typeof(this.state.urlArr.at(-1)) !== 'undefined'
+                                   ? (<><center><img src={this.state.urlArr.at(-1)} height={250} alt="nfts"/></center></>)
+                                   : null}
+
+                               </div>
+
                                 <Card.Content>
                                     <Card.Header>{this.props.username+"@gmail.com"}</Card.Header>
                                     <Card.Meta>
@@ -75,27 +118,27 @@ class UserAccount extends Component {
                                         <br/><br/>
                                         {
                                           this.state.approved ?
-                                          <Button color="green" size='large'> <Icon name="check"/>Approved</Button>
-                                          :
-                                          (<>
-                                        <Button primary disabled={this.state.disable} size='large' onClick={this.registerCandidate}>{this.state.buttonText}</Button>
-                                        </>)
-                                        }
-                                    </Card.Description>
-                                </Card.Content>
-                                <Card.Content extra>
-                                    <Message size='mini'>
-                                        {this.props.account}
-                                    </Message>
-                                </Card.Content>
-                            </Card>
-                        </Grid.Column>
-                    </Grid.Row>
-                </Grid>
+                                         <Button color="green" size='large'> <Icon name="check"/>Approved</Button>
+                                         :
+                                         (<>
+                                       <Button primary disabled={this.state.disable} size='large' onClick={this.registerCandidate}>{this.state.buttonText}</Button>
+                                       </>)
+                                       }
+                                   </Card.Description>
+                               </Card.Content>
+                               <Card.Content extra>
+                                   <Message size='mini'>
+                                       {this.props.account}
+                                   </Message>
+                               </Card.Content>
+                           </Card>
+                       </Grid.Column>
+                   </Grid.Row>
+               </Grid>
 
-            </div>
-        );
-    }
+           </div>
+       );
+   }
 }
 
 export default UserAccount;

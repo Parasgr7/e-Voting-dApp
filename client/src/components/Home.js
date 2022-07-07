@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Grid, List, Divider, Image, Segment } from 'semantic-ui-react';
+import { Grid, List, Divider, Image } from 'semantic-ui-react';
 import '../App.css';
 import img from '../img/pdf/diagram.png';
 
