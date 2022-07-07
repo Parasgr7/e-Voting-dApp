@@ -2,6 +2,8 @@ import React, { Component } from 'react';
 import { Card, Grid, Message, Button, Icon } from 'semantic-ui-react';
 import LoadingAnimation from 'react-circle-loading-animation';
 import '../App.css';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class UserAccount extends Component {
   constructor() {
@@ -38,13 +40,25 @@ class UserAccount extends Component {
 
     registerCandidate = async () => {
       this.setState({isloading: true});
-      await this.props.contract.methods.registerCandidate(this.props.username).send({ from: this.props.account }).then((res) => {
+      await this.props.contract.methods.registerCandidate(this.props.username).send({ from: this.props.account, gas: '4700000' }).then((res) => {
         this.setState({disable: true, buttonText: "Candidate Approval Pending...",isloading: false });
+      }).catch(e => {
+        if (e.code === 4001){
+           this.setState({isloading: false});
+           toast.error('Transaction Rejected!!!', {hideProgressBar: true,theme: "white"});
+        }
+        else if (e.code === -32603)
+        {
+          this.setState({isloading: false});
+           var error_msg = JSON.parse( e.message.split('\'')[1])["value"]["data"]["message"].split('revert')[1];
+          toast.error(error_msg, {hideProgressBar: true,theme: "white"});
+        }
       });
     }
     render() {
         return (
             <div className='user-account'>
+              <ToastContainer toastStyle={{ backgroundColor: "#4298d3" }}/>
               <LoadingAnimation isLoading={this.state.isloading} />
                 <Grid centered stackable>
                   <h1 className="header">User Profile</h1>

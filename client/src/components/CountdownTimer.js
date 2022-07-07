@@ -10,14 +10,6 @@ const ExpiredNotice = () => {
   );
 };
 
-const Loading = () => {
-  return (
-    <div className="loading">
-      <span>Loading...</span>
-    </div>
-  );
-};
-
 const ShowCounter = ({ days, hours, minutes, seconds }) => {
   return (
     <div className="show-counter">

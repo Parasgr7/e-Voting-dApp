@@ -3,6 +3,9 @@ import { Card, Grid, Button, Message, Icon } from 'semantic-ui-react';
 import '../App.css';
 import CountdownTimer from './CountdownTimer';
 import LoadingAnimation from 'react-circle-loading-animation';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
+
 
 class Voting extends Component {
   constructor() {
@@ -117,6 +120,16 @@ class Voting extends Component {
        event.persist();
        await this.props.contract.methods.vote(event.target.id).send({ from: this.props.account}).then(()=>{
          this.setState({isloading: false});
+       }).catch(e => {
+         if (e.code === 4001){
+            this.setState({isloading: false});
+            toast.error('Transaction Rejected!!!', {hideProgressBar: true,theme: "white"});
+         }
+         else if (e.code === -32603)
+         {
+           this.setState({isloading: false});
+           toast.error('Metamask Error!!!', {hideProgressBar: true,theme: "white"});
+         }
        });
        this.hasVoted(event.target.id);
     }
@@ -125,6 +138,16 @@ class Voting extends Component {
       this.setState({isloading: true});
       await this.props.contract.methods.claim_gift().send({ from: this.props.account, gas: '4700000' }).then(()=>{
         this.setState({isloading: false,claim_gift_text: "10 Ether Received", claim_gift_disabled: true, gift_claimed: true});
+      }).catch(e => {
+        if (e.code === 4001){
+           this.setState({isloading: false});
+           toast.error('Transaction Rejected!!!', {hideProgressBar: true,theme: "white"});
+        }
+        else if (e.code === -32603)
+        {
+          this.setState({isloading: false});
+          toast.error('Metamask Error!!!', {hideProgressBar: true,theme: "white"});
+        }
       });
     }
 
@@ -132,6 +155,7 @@ class Voting extends Component {
     render() {
         return (
             <div className='user-account'>
+              <ToastContainer toastStyle={{ backgroundColor: "#4298d3" }}/>
               <LoadingAnimation isLoading={this.state.isloading} />
               <Grid stackable>
                   {this.state.approved_candidates.length === 0 ? <h1 className="header">No Candidates</h1> :

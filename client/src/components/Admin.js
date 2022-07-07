@@ -3,6 +3,8 @@ import { Card, Grid, Button, Input, Message } from 'semantic-ui-react';
 import '../App.css';
 import CountdownTimer from './CountdownTimer';
 import LoadingAnimation from 'react-circle-loading-animation';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 
 class Admin extends Component {
@@ -74,11 +76,16 @@ class Admin extends Component {
           event.target.disabled = 1;
           event.target.style.background = "green";
         }).catch(e => {
-         if (e.code === 4001){
+          if (e.code === 4001){
+             this.setState({isloading: false});
+             toast.error('Transaction Rejected!!!', {hideProgressBar: true,theme: "white"});
+          }
+          else if (e.code === -32603)
+          {
             this.setState({isloading: false});
-
-         }
-       });
+            toast.error('Metamask Error!!!', {hideProgressBar: true,theme: "white"});
+          }
+        });
 
 
     }
@@ -87,7 +94,17 @@ class Admin extends Component {
       this.setState({isloading: true});
       await this.props.contract.methods.startVote(this.state.votingTimePeriod).send({ from: this.props.account }).then(()=>{
         this.setState({isloading: false});
-      });;
+      }).catch(e => {
+        if (e.code === 4001){
+           this.setState({isloading: false});
+           toast.error('Transaction Rejected!!!', {hideProgressBar: true,theme: "white"});
+        }
+        else if (e.code === -32603)
+        {
+          this.setState({isloading: false});
+          toast.error('Metamask Error!!!', {hideProgressBar: true,theme: "white"});
+        }
+      });
       var endTime = await this.props.contract.methods.endTime().call({ from: this.props.account });
 
       this.setState({votingProcess: true, endTime: endTime});
@@ -98,6 +115,16 @@ class Admin extends Component {
       this.setState({isloading: true});
       await this.props.contract.methods.stopVote().send({ from: this.props.account }).then(()=>{
         this.setState({isloading: false,votingProcess: false});
+      }).catch(e => {
+        if (e.code === 4001){
+           this.setState({isloading: false});
+           toast.error('Transaction Rejected!!!', {hideProgressBar: true,theme: "white"});
+        }
+        else if (e.code === -32603)
+        {
+          this.setState({isloading: false});
+          toast.error('Metamask Error!!!', {hideProgressBar: true,theme: "white"});
+        }
       });
     }
 
@@ -108,6 +135,7 @@ class Admin extends Component {
     render() {
         return (
             <div className='user-account'>
+              <ToastContainer toastStyle={{ backgroundColor: "#4298d3" }}/>
               <LoadingAnimation isLoading={this.state.isloading} />
               <Grid stackable>
                 <Grid.Row centered>
