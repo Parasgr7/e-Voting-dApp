@@ -1,12 +1,6 @@
-# Blockchain-based Authentication
+# Blockchain-based decentralized voting application
 
-This project shows how the use of Blockchain allows to create a Blockchain-based authentication where the user's login data hash is stored in a smart contract.
-
-
-## Diagram
-
-The following diagram shows all steps to generate the user's login data hash from the username, the password, the National Identification No. (6 Digits) and the ethereum address. To register the user must fill a form to provide the username, the password and the National Identification No. (6 Digits), the ethereum address is retrieved directly from the wallet. This address is associated to the username to generate a signature via the web3 function sign, the generated signature is hashed (hash1). The password is associated with the National Identification No. (6 Digits) to generate another hash (hash2). The two hashes are combined to generated the final hash that is stored in the smart contract. To login, the user must be connected to the Blockchain with the same address used during registration, and fill the login form with right username, password and the National Identification No. (6 Digits). The back-end code then generates the hash with this login information and compares it with the hash that was stored in the smart contract by the ethereum address which request the login, if the two hashes match, then the user is authorized to login, if not, the access is denied.
-
-![alt text](https://github.com/Edoumou/blockchain-based-authentication/blob/main/client/src/img/pdf/diagram.png "BBA diagram")
+This is a demonstration of a Blockchain based authentication and decentralized e-Voting process. In this project login information are not stored in a database, but the hash resulting from login data is stored on a smart contract[Authentication].
+Another solidity contract[Election] is used for storing the electors as candidates and the voting process is taken care by Admin. At the end of the voting period the results are declared and winning candidate then claims  1 Ether as prize money[unlocked from the Smart Contract].
 
 ---
