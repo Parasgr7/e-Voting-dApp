@@ -7,13 +7,13 @@ body {
   color: white!important;
 }
 div.homeHeader{
-  font-size: 50px;
+  font-size: 40px;
   font-weight: 400;
   background-image: linear-gradient(to bottom, #66ffff, #00ccff);
   color: transparent;
   background-clip: text;
   -webkit-background-clip: text;
-  padding-bottom: 2rem;
+  padding-bottom: 1rem;
 
 }
 .column.pads{
@@ -21,7 +21,7 @@ div.homeHeader{
 }
 .App {
   text-align: center;
-  height: 150vh;
+  height: 120vh;
   font-size: 20px;
   font-weight: 200;
   word-spacing: 1px;
@@ -79,12 +79,16 @@ div.homeHeader{
   font-weight: 100;
 }
 
+b, strong {
+  font-weight: bold;
+}
+
 .home-page {
-  padding-top: 50px;
+  padding-top: 25px;
   padding-left: 40px;
   padding-right: 30px;
-  font-size: 30px;
-  font-weight: 200;
+  font-size: 25px;
+  font-weight: 100;
   line-height: 1.5em;
 }
 
@@ -220,4 +224,16 @@ span > b.vote_count{
 
 .ui.mini.message {
   overflow-wrap: break-word;
+}
+
+span.subHeading{
+  font-size: 26px;
+  font-weight: 600;
+  color: #93daf7;
+}
+
+span.heading{
+  font-size: 30px;
+  font-weight: 800;
+  color: #53c0ed;
 }
