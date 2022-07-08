@@ -70,7 +70,7 @@ contract Election {
     }
 
     function stopVote() public onlyAdmin {
-        require(block.timestamp >= endTime && votingProcess);
+        require(block.timestamp >= endTime && votingProcess,"Current time should be greater than Election End time");
         votingProcess = false;
         gift_claimed = false;
         startTime = 0;

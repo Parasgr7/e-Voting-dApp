@@ -6,6 +6,7 @@
     "@truffle/hdwallet-provider": "^1.4.1",
     "dotenv": "^6.2.0",
     "ipfs-http-client": "^50.1.2",
+    "@openzeppelin/test-helpers": "^0.5.15",
     "react": "16.11.0",
     "react-circle-loading-animation": "^0.0.3",
     "react-dom": "16.11.0",

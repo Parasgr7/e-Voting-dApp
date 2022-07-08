@@ -175,15 +175,6 @@ class App extends Component {
                           as={Link}
                           to='/'
                         />
-                        <Menu.Item
-                          name='help'
-                          color={color}
-                          active={activeItem === 'help'}
-                          onClick={this.handleItemClick}
-                          as={Link}
-                          to='/help'
-
-                        />
                       <Menu.Menu position='right'>
                         <Menu.Item
                           position='right'
@@ -212,16 +203,6 @@ class App extends Component {
 
             <Divider inverted />
             <Switch>
-              <Route path='/help'  >
-                {
-                  this.state.loggedIn ?
-                  <Redirect to='/user-account' />
-                  :
-                  <Route path='/help'>
-                    Helps Page
-                  </Route>
-                }
-              </Route>
               {
                 <Route path='/sign-in' >
                   {
