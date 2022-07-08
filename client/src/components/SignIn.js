@@ -125,12 +125,12 @@ class SignIn extends Component {
                                             <Message positive>
                                                 {this.state.alertMessage}
                                             </Message> :
-                                            console.log('')
+                                            null
                                 }
                                 <Form.Field required>
                                     <input
                                         type='text'
-                                        placeholder='username'
+                                        placeholder='Username'
                                         value={this.state.username}
                                         autoComplete="username"
                                         onChange={e => this.setState({ username: e.target.value })}
@@ -139,7 +139,7 @@ class SignIn extends Component {
                                 <Form.Field required>
                                     <input
                                         type='password'
-                                        placeholder='password'
+                                        placeholder='Password'
                                         value={this.state.password}
                                         autoComplete="current-password"
                                         onChange={e => this.setState({ password: e.target.value })}

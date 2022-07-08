@@ -85,7 +85,6 @@ class App extends Component {
   }
 
   userSignedIn = async (loggedIn, username) => {
-    var username = username.split('@')[0].charAt(0).toUpperCase() + username.split('@')[0].toLowerCase().slice(1);
     this.setState({ loggedIn, username });
     window.localStorage.setItem('loggedIn', loggedIn );
     window.localStorage.setItem('username', username );

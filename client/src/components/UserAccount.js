@@ -20,11 +20,18 @@ class UserAccount extends Component {
       file: null,
       url: "",
       filename: null,
-      voter_exist_id: 0
+      voter_exist_id: 0,
+      img_text: 'Upload IdProof',
+      img_button_disable: false
     }
   }
     componentDidMount = async () => {
       this.fetch_userAccount();
+
+      this.fetch_userAccount = this.fetch_userAccount.bind(this);
+      this.retrieveFile = this.retrieveFile.bind(this);
+      this.registerCandidate = this.registerCandidate.bind(this);
+      this.handleSubmit = this.handleSubmit.bind(this);
     }
 
     fetch_userAccount = async() => {
@@ -51,8 +58,9 @@ class UserAccount extends Component {
     }
 
     registerCandidate = async () => {
+      var username_pretty = this.props.username.split('@')[0].charAt(0).toUpperCase() + this.props.username.split('@')[0].toLowerCase().slice(1)
       this.setState({isloading: true});
-      await this.props.contract.methods.registerCandidate(this.props.username, this.state.url).send({ from: this.props.account, gas: '4700000' }).then((res) => {
+      await this.props.contract.methods.registerCandidate(username_pretty, this.state.url).send({ from: this.props.account, gas: '4700000' }).then((res) => {
         this.setState({disable: true, buttonText: "Candidate Approval Pending...",isloading: false });
       }).catch(e => {
         if (e.code === 4001){
@@ -72,7 +80,6 @@ class UserAccount extends Component {
 
      retrieveFile = (e) => {
       const data = e.target.files[0];
-      console.log(data);
       this.setState({filename: data.name});
       const reader = new window.FileReader();
       reader.readAsArrayBuffer(data);
@@ -84,15 +91,18 @@ class UserAccount extends Component {
     }
 
     handleSubmit = async (e) => {
+      this.setState({img_text: "Loading...", img_button_disable: true});
       e.preventDefault();
-      console.log("Here");
       try {
         const created = await client.add(this.state.file);
         const url = `https://ipfs.infura.io/ipfs/${created.path}`;
         this.setState({url: url});
         console.log(this.state);
+        this.setState({img_text: "Change Image", img_button_disable: false});
       } catch (error) {
         console.log(error);
+        toast.error('File not Found!!!', {hideProgressBar: true,theme: "white"});
+        this.setState({img_text: "Upload Id Proof", img_button_disable: false});
       }
     };
 
@@ -107,23 +117,22 @@ class UserAccount extends Component {
                     <Grid.Row>
                         <Grid.Column>
                             <Card fluid className="userAccount">
-                              <div className="display">
+                              <div className="display" style={{"margin": 10}}>
                                 { this.state.url.length !== 0
-                                  ? (<><center><img src={this.state.url} height={250} alt="nfts"/></center></>)
+                                  ? (<><center><img src={this.state.url} height={250} width={480} alt="nfts"/></center></>)
                                   : null
                                 }
                               </div>
                               {this.state.voter_exist_id ?
                                 null
                                 : (<>
-                                  <br/>
                                   <Grid divided='vertically'>
                                     <Grid.Row centered columns={2}>
                                       <Grid.Column width={10}>
-                                        <Input onChange={this.retrieveFile} type="file" className="fileInput"/>
+                                        <Input onChange={this.retrieveFile} required type="file" className="fileInput"/>
                                       </Grid.Column>
-                                      <Grid.Column width={6} className="uploadCont">
-                                        <Button primary onClick={this.handleSubmit} className="imageUpload">Upload Image</Button>
+                                      <Grid.Column width={6} className="textCenter" style={{"marginTop": 10}}>
+                                        <Button primary disabled={this.state.img_button_disable} onClick={this.handleSubmit} className="imageUpload">{this.state.img_text}</Button>
                                       </Grid.Column>
                                     </Grid.Row>
                                   </Grid>
@@ -132,12 +141,14 @@ class UserAccount extends Component {
 
 
                                 <Card.Content>
-                                    <Card.Header>{this.props.username+"@gmail.com"}</Card.Header>
+                                    <Card.Header>{this.props.username}</Card.Header>
                                     <Card.Meta>
                                         <strong>{this.state.approved ? "Candidate" : "Voter"}</strong>
                                     </Card.Meta>
                                     <Card.Description>
-                                        <span className="name">Username: <b className="name"> {this.props.username} </b> </span>
+                                        <span className="name">Username: <b className="name">
+                                           {this.props.username.split('@')[0].charAt(0).toUpperCase() + this.props.username.split('@')[0].toLowerCase().slice(1)} </b>
+                                        </span>
                                         <br/><br/>
                                         {
                                           this.state.approved ?

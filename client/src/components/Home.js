@@ -63,6 +63,7 @@ class Home extends Component {
                               <List bulleted>
                                 <List.Item>SignIn/SignUp  as Elector</List.Item>
                                 <List.Item>Register as Candidate</List.Item>
+                                <List.Item>Upload ID-proof <strong>via IPFS</strong></List.Item>
                                 <List.Item>Participate in e-Voting</List.Item>
                                 <List.Item>Check Results</List.Item>
                                 <List.Item>Winner claims Prize[i.e 1 Ether]</List.Item>
