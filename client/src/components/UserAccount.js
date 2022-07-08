@@ -120,7 +120,7 @@ class UserAccount extends Component {
                               <div className="display" style={{"margin": 10}}>
                                 { this.state.url.length !== 0
                                   ? (<><center><img src={this.state.url} height={250} width={480} alt="nfts"/></center></>)
-                                  : null
+                                  : (<><center><img src="https://ipfs.infura.io/ipfs/QmRLQCfLJ8VVMNjyUyNjTP8DXYuuAjkWuUG1S1KG4XSm72" height={200} width={200} alt="nfts"/></center></>)
                                 }
                               </div>
                               {this.state.voter_exist_id ?
@@ -132,7 +132,7 @@ class UserAccount extends Component {
                                         <Input onChange={this.retrieveFile} required type="file" className="fileInput"/>
                                       </Grid.Column>
                                       <Grid.Column width={6} className="textCenter" style={{"marginTop": 10}}>
-                                        <Button primary disabled={this.state.img_button_disable} onClick={this.handleSubmit} className="imageUpload">{this.state.img_text}</Button>
+                                        <Button color='olive' disabled={this.state.img_button_disable} onClick={this.handleSubmit} className="imageUpload">{this.state.img_text}</Button>
                                       </Grid.Column>
                                     </Grid.Row>
                                   </Grid>
