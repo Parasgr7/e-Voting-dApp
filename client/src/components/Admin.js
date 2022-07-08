@@ -202,7 +202,13 @@ class Admin extends Component {
                               return(
                                 <>
                                   <Grid.Column key={index} className="pads">
-                                      <Card fluid>
+                                      <Card fluid className={this.state.unapproved_candidates.length <= 2 ? "userAccount" :"adminCards"}>
+                                        <div className="display">
+                                          { candidate.image_addr.length !== 0
+                                            ? (<><center><img src={candidate.image_addr} height={250} width={this.state.unapproved_candidates.length<=2 ? 550 : 250} alt="nfts"/></center></>)
+                                            : null
+                                          }
+                                        </div>
                                           <Card.Content>
                                               <Card.Header>{candidate.name}</Card.Header>
                                               <Card.Meta>

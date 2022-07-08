@@ -2,10 +2,9 @@
   margin: 0;
   padding: 0;
 }
-
-/* body {
+body {
   color: white!important;
-} */
+}
 div.homeHeader{
   font-size: 40px;
   font-weight: 400;
@@ -15,6 +14,17 @@ div.homeHeader{
   -webkit-background-clip: text;
   padding-bottom: 1rem;
 
+}
+.ui.input.fileInput>input {
+  margin-left: 12px;
+  max-width: 70%!important;
+}
+.imageUpload{
+  margin: 12px;
+  margin-left: 50px
+}
+.column.uploadCont{
+  margin-top: 10px!important;
 }
 .column.pads{
   padding-bottom: 2rem;
@@ -95,7 +105,6 @@ b, strong {
 .user-account {
   display: flex;
   justify-content: center;
-  padding-top: 50px;
   padding-left: 40px;
   padding-right: 30px;
 }
@@ -103,8 +112,23 @@ b, strong {
 .textCenter{
   text-align: center!important;
 }
+
 .user-card {
   margin-top: 30px;
+}
+.ui.fluid.card.userAccount {
+  margin: auto;
+  width: 600px;
+}
+
+.ui.fluid.card.adminCards {
+  margin: auto;
+  width: 310px;
+}
+
+.ui.fluid.card.electionWinner {
+  margin: auto;
+  width: 310px;
 }
 
 .button{
@@ -129,7 +153,7 @@ b, strong {
   background-color: #86c7bee6;
   background-image: url(./img/winner.jpeg);
   background-repeat: no-repeat;
-  background-position: top;
+  background-position: 30px 250px;
   background-size: 250px;
 }
 

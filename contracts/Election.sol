@@ -9,6 +9,7 @@ contract Election {
         string name;
         uint voteCount;
         bool approved;
+        string image_addr;
 
     }
     address public contract_owner;
@@ -22,7 +23,7 @@ contract Election {
     // Fetch Candidate
     mapping(uint => Candidate) public candidates;
 
-    mapping(address => uint) private addressmap;
+    mapping(address => uint) public addressmap;
     // Store Candidates Count
     uint public candidatesCount;
     uint public endTime;
@@ -47,11 +48,11 @@ contract Election {
         wei_received = msg.value;
     }
 
-    function registerCandidate (string memory _name) public {
+    function registerCandidate (string memory _name, string memory _imgAddr) public {
         // require that they haven't registered before
         require(addressmap[msg.sender] == 0, "Already Registered");
         candidatesCount ++;
-        candidates[candidatesCount] = Candidate(candidatesCount,msg.sender, _name, 0, false);
+        candidates[candidatesCount] = Candidate(candidatesCount,msg.sender, _name, 0, false, _imgAddr);
         addressmap[msg.sender] = candidatesCount;
     }
 
@@ -81,6 +82,7 @@ contract Election {
             candidates[i].name = '';
             candidates[i].voteCount = 0;
             candidates[i].approved = false;
+            candidates[i].image_addr = '';
         }
         candidatesCount = 0;
     }

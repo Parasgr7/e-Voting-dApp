@@ -61,7 +61,6 @@ class Voting extends Component {
           votingProcess: votingProcess,
           gift_claimed : gift_claimed
         });
-        console.log(this.state);
 
         var arr = [];
         for(var i=1; i<= this.state.candidates_count; i++ )
@@ -74,6 +73,7 @@ class Voting extends Component {
         }
 
         this.setState({approved_candidates: arr});
+        console.log(this.state);
     }
 
     fetch_election_results = async() =>{
@@ -137,7 +137,7 @@ class Voting extends Component {
     claim_gift = async () =>{
       this.setState({isloading: true});
       await this.props.contract.methods.claim_gift().send({ from: this.props.account, gas: '4700000' }).then(()=>{
-        this.setState({isloading: false,claim_gift_text: "10 Ether Received", claim_gift_disabled: true, gift_claimed: true});
+        this.setState({isloading: false,claim_gift_text: "1 Ether Received", claim_gift_disabled: true, gift_claimed: true});
       }).catch(e => {
         if (e.code === 4001){
            this.setState({isloading: false});
@@ -186,34 +186,15 @@ class Voting extends Component {
                                       this.state.votingResult.length === 1 ?
                                       (
                                         <>
-                                          <Card fluid className={(this.state.votingResult[0] == candidate.id && this.state.display_results) ? 'electionWinner' : null}>
+                                          <Card fluid className={(this.state.votingResult[0] == candidate.id && this.state.display_results) ? 'electionWinner' : (this.state.approved_candidates.length <= 2 ? "userAccount" : null)}>
+                                              <div className="display">
+                                                { candidate.image_addr.length !== 0
+                                                  ? (<><center><img src={candidate.image_addr} height={250} width={this.state.approved_candidates.length<=2 ? 550 : 250} alt="nfts"/></center></>)
+                                                  : null
+                                                }
+                                              </div>
                                             <Card.Content>
-                                              {
-                                                ((this.state.votingResult[0] == candidate.id && this.state.display_results)?
-                                                  (
-                                                    <>
-                                                    <Grid.Row>
-                                                      <Grid.Column floated="right">
-                                                        {this.state.gift_claimed ?
-                                                          <Button disabled="true" className="claim_gift" size='large'><Icon name="check"/>10 Ether Received</Button>
-                                                            :
-                                                            (<>
-                                                              {(this.state.userId === candidate.id) ?
-                                                                (<>
-                                                                  <Button disabled={this.state.claim_gift_disabled} color="blue" className={this.state.claim_gift_disabled ? "claim_gift" : null} size='large' onClick={()=> this.claim_gift()}>{this.state.claim_gift_disabled ? <Icon name="check"/> : null}{this.state.claim_gift_text}</Button>
-                                                                  </>)
-                                                                : null }
-                                                            </>)
-                                                          }
 
-                                                      </Grid.Column>
-                                                    </Grid.Row>
-                                                    </>
-                                                  )
-                                                  :
-                                                  null
-                                                )
-                                              }
                                                 <Card.Header>{candidate.name}</Card.Header>
 
                                                 <Card.Meta>
@@ -232,6 +213,32 @@ class Voting extends Component {
                                                     }
 
                                                 </Card.Description>
+                                                {
+                                                  ((this.state.votingResult[0] == candidate.id && this.state.display_results)?
+                                                    (
+                                                      <>
+                                                      <Grid.Row>
+                                                        <Grid.Column className="textCenter">
+                                                          {this.state.gift_claimed ?
+                                                            <Button disabled="true" className="claim_gift" size='large'><Icon name="check"/>1 Ether Received</Button>
+                                                              :
+                                                              (<>
+                                                                {(this.state.userId === candidate.id) ?
+                                                                  (<>
+                                                                    <Button disabled={this.state.claim_gift_disabled} color="blue" className={this.state.claim_gift_disabled ? "claim_gift" : null} size='large' onClick={()=> this.claim_gift()}>{this.state.claim_gift_disabled ? <Icon name="check"/> : null}{this.state.claim_gift_text}</Button>
+                                                                    </>)
+                                                                  : null }
+                                                              </>)
+                                                            }
+
+                                                        </Grid.Column>
+                                                      </Grid.Row>
+                                                      </>
+                                                    )
+                                                    :
+                                                    null
+                                                  )
+                                                }
                                             </Card.Content>
                                             <Card.Content extra>
                                                 <Message size='mini'>

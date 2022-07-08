@@ -75,6 +75,7 @@ class SignIn extends Component {
                             username: '',
                             password: '',
                             digicode: '',
+                            isloading: false
                         });
                         return
                     } else {
@@ -84,7 +85,8 @@ class SignIn extends Component {
                             digicode: '',
                             status: 'success',
                             alertMessage: "Sign in successful",
-                            loggedIn: true
+                            loggedIn: true,
+                            isloading: false
                         });
 
                         this.props.userSignedIn(
