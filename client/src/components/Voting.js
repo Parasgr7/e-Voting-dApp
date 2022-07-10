@@ -128,15 +128,16 @@ class Voting extends Component {
          else if (e.code === -32603)
          {
            this.setState({isloading: false});
-           toast.error('Metamask Error!!!', {hideProgressBar: true,theme: "white"});
+           var error_msg = JSON.parse( e.message.split('\'')[1])["value"]["data"]["message"].split('revert')[1];
+          toast.error(error_msg, {hideProgressBar: true,theme: "white"});
          }
        });
        this.hasVoted(event.target.id);
     }
 
-    claim_gift = async () =>{
+    claim_gift = async (candidate_id) =>{
       this.setState({isloading: true});
-      await this.props.contract.methods.claim_gift().send({ from: this.props.account, gas: '4700000' }).then(()=>{
+      await this.props.contract.methods.claim_gift(candidate_id).send({ from: this.props.account, gas: '4700000' }).then(()=>{
         this.setState({isloading: false,claim_gift_text: "1 Ether Received", claim_gift_disabled: true, gift_claimed: true});
       }).catch(e => {
         if (e.code === 4001){
@@ -146,7 +147,8 @@ class Voting extends Component {
         else if (e.code === -32603)
         {
           this.setState({isloading: false});
-          toast.error('Metamask Error!!!', {hideProgressBar: true,theme: "white"});
+          var error_msg = JSON.parse( e.message.split('\'')[1])["value"]["data"]["message"].split('revert')[1];
+         toast.error(error_msg, {hideProgressBar: true,theme: "white"});
         }
       });
     }
@@ -158,13 +160,17 @@ class Voting extends Component {
               <ToastContainer toastStyle={{ backgroundColor: "#327F94" }}/>
               <LoadingAnimation isLoading={this.state.isloading} />
               <Grid stackable>
-                  {this.state.approved_candidates.length === 0 ? <h1 className="header">No Candidates</h1> :
+                  {this.state.approved_candidates.length === 0 ? <h1 className="header">Awaiting Election</h1> :
                   <Grid.Row>
                   <>
                     <Grid columns={this.state.approved_candidates.length <= 3 ? this.state.approved_candidates.length : 4} divided>
                         <Grid.Row centered>
                           <Grid.Column className="textCenter">
-                            {this.state.voted? <h1 className="header">Vote Recorded</h1>  : <h1 className="header">Cast your vote</h1> }
+                            {this.state.voted? <h1 className="header">Vote Recorded</h1>
+                              :(this.state.endTime < this.state.dateNow && this.state.endTime !== 0 ?  <h1 className="header">Election Results</h1>
+                              : this.state.endTime < this.state.dateNow && this.state.endTime == 0 ? <h1 className="header">Awaiting Election</h1>
+                              : <h1 className="header">Cast your vote</h1> )
+                            }
                           </Grid.Column>
                         </Grid.Row>
                         <Grid.Row centered>
@@ -186,16 +192,16 @@ class Voting extends Component {
                                       this.state.votingResult.length === 1 ?
                                       (
                                         <>
-                                          <Card fluid className={(this.state.votingResult[0] == candidate.id && this.state.display_results) ? 'electionWinner' : (this.state.approved_candidates.length <= 2 ? "userAccount" : null)}>
-                                              <div className="display">
+                                          <Card fluid className={(this.state.votingResult[0] == candidate.id && this.state.display_results) ? 'electionWinner' : (this.state.approved_candidates.length <= 2 ? "userAccount" : "adminCards")}>
+                                              <div className="display" style={{"margin": 10}}>
                                                 { candidate.image_addr.length !== 0
-                                                  ? (<><center><img src={candidate.image_addr} height={250} width={this.state.approved_candidates.length<=2 ? 550 : 250} alt="nfts"/></center></>)
-                                                  : (<><center><img src="https://ipfs.infura.io/ipfs/QmRLQCfLJ8VVMNjyUyNjTP8DXYuuAjkWuUG1S1KG4XSm72" height={200} width={200} alt="nfts"/></center></>)
+                                                  ? (<><center><img src={candidate.image_addr} height={250} width={this.state.approved_candidates.length<=2 ? 480 : 280} alt="nfts"/></center></>)
+                                                  : (<><center><img src="https://ipfs.infura.io/ipfs/QmRLQCfLJ8VVMNjyUyNjTP8DXYuuAjkWuUG1S1KG4XSm72" height={250} width={250} alt="nfts"/></center></>)
                                                 }
                                               </div>
                                             <Card.Content>
 
-                                                <Card.Header>{candidate.name}</Card.Header>
+                                                <Card.Header style={{'overflowWrap': 'break-word'}}>{candidate.name + "@gmail.com"}</Card.Header>
 
                                                 <Card.Meta>
                                                     <strong>{candidate.approved ? "Candidate" : "Voter"}</strong>
@@ -225,7 +231,7 @@ class Voting extends Component {
                                                               (<>
                                                                 {(this.state.userId === candidate.id) ?
                                                                   (<>
-                                                                    <Button disabled={this.state.claim_gift_disabled} color="blue" className={this.state.claim_gift_disabled ? "claim_gift" : null} size='large' onClick={()=> this.claim_gift()}>{this.state.claim_gift_disabled ? <Icon name="check"/> : null}{this.state.claim_gift_text}</Button>
+                                                                    <Button disabled={this.state.claim_gift_disabled} color="blue" className={this.state.claim_gift_disabled ? "claim_gift" : null} size='large' onClick={()=> this.claim_gift(candidate.id)}>{this.state.claim_gift_disabled ? <Icon name="check"/> : null}{this.state.claim_gift_text}</Button>
                                                                     </>)
                                                                   : null }
                                                               </>)
@@ -252,7 +258,13 @@ class Voting extends Component {
                                       :
                                       (
                                         <>
-                                        <Card fluid className={((this.state.votingResult[0] == candidate.id || this.state.votingResult[1] == candidate.id) && this.state.display_results) ? 'electionWinner' : null}>
+                                        <Card fluid className={((this.state.votingResult[0] == candidate.id || this.state.votingResult[1] == candidate.id) && this.state.display_results) ? 'electionWinner' : (this.state.approved_candidates.length <= 2 ? "userAccount" : null)}>
+                                          <div className="display" style={{"margin": 10}}>
+                                            { candidate.image_addr.length !== 0
+                                              ? (<><center><img src={candidate.image_addr} height={250} width={this.state.approved_candidates.length<=2 ? 280 : 250} alt="nfts"/></center></>)
+                                              : (<><center><img src="https://ipfs.infura.io/ipfs/QmRLQCfLJ8VVMNjyUyNjTP8DXYuuAjkWuUG1S1KG4XSm72" height={250} width={this.state.approved_candidates.length<=2 ? 480 : 250} alt="nfts"/></center></>)
+                                            }
+                                          </div>
                                           <Card.Content>
                                             {
                                               (((this.state.votingResult[0] == candidate.id || this.state.votingResult[1] == candidate.id) && this.state.display_results)?

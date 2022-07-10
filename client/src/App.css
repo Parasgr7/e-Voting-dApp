@@ -31,7 +31,7 @@ div.homeHeader{
 }
 .App {
   text-align: center;
-  height: 120vh;
+  /* height: 120vh; */
   font-size: 20px;
   font-weight: 200;
   word-spacing: 1px;
@@ -126,11 +126,6 @@ b, strong {
   width: 310px;
 }
 
-.ui.fluid.card.electionWinner {
-  margin: auto;
-  width: 310px;
-}
-
 .button{
   border-radius: 25px!important;
 }
@@ -148,13 +143,15 @@ b, strong {
    border-radius: 1.5rem;
  }
  .ui.fluid.card.electionWinner{
+  margin: auto;
   border: 3px solid #0feacce6;
   border-radius: 1.5rem;
   background-color: #86c7bee6;
   background-image: url(./img/winner.jpeg);
   background-repeat: no-repeat;
-  background-position: 30px 250px;
+  background-position: 30px 280px;
   background-size: 250px;
+  width: 310px;
 }
 
 .ui.disabled.button.claim_gift{
@@ -260,4 +257,10 @@ span.heading{
   font-size: 30px;
   font-weight: 800;
   color: #53c0ed;
+}
+
+a{
+color: #44beff;
+text-decoration: none;
+font-weight: bold;
 }

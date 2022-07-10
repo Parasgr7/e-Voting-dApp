@@ -15,7 +15,6 @@ class Admin extends Component {
       candidate_id: null ,
       candidates_count: 0,
       unapproved_candidates: [],
-      approved_candidates: [],
       color: 'blue',
       startTime: 1,
       endTime: 1,
@@ -42,12 +41,15 @@ class Admin extends Component {
         var startTime = await this.props.contract.methods.startTime().call({ from: this.props.account });
         var endTime = await this.props.contract.methods.endTime().call({ from: this.props.account });
         var votingProcess = await this.props.contract.methods.votingProcess().call({ from: this.props.account });
+        // var approved_candidates_count = await this.props.contract.methods.approved_candidates_count().call({ from: this.props.account });
+        var approved_candidates_count = 2;
 
         this.setState({
           candidates_count: Number(candidates_count),
           startTime: Number(startTime),
           endTime: Number(endTime),
-          votingProcess: votingProcess
+          votingProcess,
+          approved_candidates_count
         });
 
         var arr = [];
@@ -59,17 +61,14 @@ class Admin extends Component {
           {
             arr.push(candidate);
           }
-          else{
-            approved_arr.push(candidate)
-          }
         }
-        this.setState({unapproved_candidates: arr,approved_candidates: approved_arr });
+        this.setState({unapproved_candidates: arr});
     }
 
     approve= async (event) => {
         this.setState({isloading: true});
         event.persist();
-        await this.props.contract.methods.approve(event.target.id).send({ from: this.props.account }).then((tx)=>{
+        await this.props.contract.methods.approve(event.target.id).send({ from: this.props.account, gas: '4700000' }).then((tx)=>{
           console.log(tx);
           this.setState({isloading: false});
           event.target.innerText = "Approved";
@@ -83,7 +82,8 @@ class Admin extends Component {
           else if (e.code === -32603)
           {
             this.setState({isloading: false});
-            toast.error('Metamask Error!!!', {hideProgressBar: true,theme: "white"});
+            var error_msg = JSON.parse( e.message.split('\'')[1])["value"]["data"]["message"].split('revert')[1];
+           toast.error(error_msg, {hideProgressBar: true,theme: "white"});
           }
         });
 
@@ -102,7 +102,8 @@ class Admin extends Component {
         else if (e.code === -32603)
         {
           this.setState({isloading: false});
-          toast.error('Metamask Error!!!', {hideProgressBar: true,theme: "white"});
+          var error_msg = JSON.parse( e.message.split('\'')[1])["value"]["data"]["message"].split('revert')[1];
+         toast.error(error_msg, {hideProgressBar: true,theme: "white"});
         }
       });
       var endTime = await this.props.contract.methods.endTime().call({ from: this.props.account });
@@ -123,7 +124,8 @@ class Admin extends Component {
         else if (e.code === -32603)
         {
           this.setState({isloading: false});
-          toast.error('Metamask Error!!!', {hideProgressBar: true,theme: "white"});
+          var error_msg = JSON.parse( e.message.split('\'')[1])["value"]["data"]["message"].split('revert')[1];
+         toast.error(error_msg, {hideProgressBar: true,theme: "white"});
         }
       });
     }
@@ -140,7 +142,13 @@ class Admin extends Component {
               <Grid stackable>
                 <Grid.Row centered>
                   <Grid.Column className="textCenter">
-                    {this.state.unapproved_candidates.length ===0 ? <h1 className="header">No Pending Candidates</h1> : <h1 className="header">Pending Candidates</h1>}
+                    {
+                       (this.state.approved_candidates_count >=2 && this.state.endTime == 0 ?  <h1 className="header">Start Election</h1>
+                      : (this.state.endTime < this.state.dateNow && this.state.endTime !== 0) ? <h1 className="header">Election Over</h1>
+                      : this.state.unapproved_candidates.length ===0 ? <h1 className="header">No Pending Candidates</h1>
+                      : <h1 className="header">Pending Canidates</h1>
+                      )
+                    }
                   </Grid.Column>
                 </Grid.Row>
                 <Grid.Row>
@@ -149,7 +157,7 @@ class Admin extends Component {
                   <Grid columns={this.state.unapproved_candidates.length <= 3 ? this.state.unapproved_candidates.length : 4} divided>
 
                     {
-                      (this.state.endTime === 0 && this.state.startTime === 0 && !this.state.votingProcess && this.state.approved_candidates.length >= 2) ?
+                      (this.state.endTime === 0 && this.state.startTime === 0 && !this.state.votingProcess && this.state.approved_candidates_count >= 2) ?
                         <Grid.Row centered>
                           <Grid.Column className="textCenter">
                             <Input action={{
@@ -203,14 +211,14 @@ class Admin extends Component {
                                 <>
                                   <Grid.Column key={index} className="pads">
                                       <Card fluid className={this.state.unapproved_candidates.length <= 2 ? "userAccount" :"adminCards"}>
-                                        <div className="display">
+                                        <div className="display" style={{"margin": 10}}>
                                           { candidate.image_addr.length !== 0
-                                            ? (<><center><img src={candidate.image_addr} height={250} width={this.state.unapproved_candidates.length<=2 ? 550 : 250} alt="nfts"/></center></>)
-                                            : (<><center><img src="https://ipfs.infura.io/ipfs/QmRLQCfLJ8VVMNjyUyNjTP8DXYuuAjkWuUG1S1KG4XSm72" height={200} width={200} alt="nfts"/></center></>)
+                                            ? (<><center><img src={candidate.image_addr} height={250} width={this.state.unapproved_candidates.length<=2 ? 480 : 280} alt="nfts"/></center></>)
+                                            : (<><center><img src="https://ipfs.infura.io/ipfs/QmRLQCfLJ8VVMNjyUyNjTP8DXYuuAjkWuUG1S1KG4XSm72" height={250} width={250} alt="nfts"/></center></>)
                                           }
                                         </div>
                                           <Card.Content>
-                                              <Card.Header>{candidate.name}</Card.Header>
+                                              <Card.Header style={{'overflow-wrap': 'break-word'}}>{candidate.name +"@gmail.com"}</Card.Header>
                                               <Card.Meta>
                                                   <strong>{candidate.approved ? "Candidate" : "Voter"}</strong>
                                               </Card.Meta>

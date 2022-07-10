@@ -47,7 +47,7 @@ class UserAccount extends Component {
           url: candidate.image_addr
         });
         window.localStorage.setItem('userId', candidate.id );
-        if(!candidate.approved)
+        if(!candidate.approved && candidate.name.length !== 0)
         {
           this.setState({
             disable: true,
@@ -55,6 +55,7 @@ class UserAccount extends Component {
         }
 
       }
+      console.log(this.state);
     }
 
     registerCandidate = async () => {
@@ -91,7 +92,7 @@ class UserAccount extends Component {
     }
 
     handleSubmit = async (e) => {
-      this.setState({img_text: "Loading...", img_button_disable: true});
+      this.setState({img_text: "Uploading...", img_button_disable: true});
       e.preventDefault();
       try {
         const created = await client.add(this.state.file);

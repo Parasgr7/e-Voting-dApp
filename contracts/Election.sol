@@ -19,7 +19,10 @@ contract Election {
 
     // Store accounts that have voted
     mapping(address => bool) public voters;
-    // Store Candidates
+    mapping(uint => address) private votersmap;
+    uint private votersCount;
+    uint public approved_candidates_count;
+
     // Fetch Candidate
     mapping(uint => Candidate) public candidates;
 
@@ -42,6 +45,10 @@ contract Election {
         require (startTime <= block.timestamp && block.timestamp <= endTime, "Voting Time Error");
         _;
     }
+    modifier sufficientBalance() {
+        require (address(this).balance >=1, "Need sufficient balance");
+        _;
+    }
     constructor () payable {
         contract_owner =  msg.sender;
         votingProcess = false;
@@ -57,13 +64,15 @@ contract Election {
     }
 
     function approve (uint _candidateId) public onlyAdmin{
-        require (candidates[_candidateId].id >= 1 && candidates[_candidateId].approved == false);
+        require (candidates[_candidateId].id >= 1 && candidates[_candidateId].approved == false, "Already approved");
         candidates[_candidateId].approved = true;
+        approved_candidates_count++;
     }
 
     function startVote(uint _voteMinutes) public onlyAdmin {
-        require(votingProcess == false && _voteMinutes > 0, "Voting in Progress");
         require(candidatesCount >=2, "Less than 2 candidates");
+        require(approved_candidates_count >=2, "Less than 2 approved candidates");
+        require(votingProcess == false && _voteMinutes > 0, "Voting in Progress");
         startTime = block.timestamp;
         endTime = block.timestamp + _voteMinutes*60;
         votingProcess = true;
@@ -76,7 +85,7 @@ contract Election {
         startTime = 0;
         endTime = 0;
         for (uint i=1; i<= candidatesCount ; i++) {
-            voters[candidates[i].candidate_address] = false;
+            addressmap[candidates[i].candidate_address] = 0;
             candidates[i].id = 0;
             candidates[i].candidate_address = address(0);
             candidates[i].name = '';
@@ -84,30 +93,39 @@ contract Election {
             candidates[i].approved = false;
             candidates[i].image_addr = '';
         }
+        for (uint i=1; i<= votersCount ; i++) {
+            voters[votersmap[i]] = false;
+            votersmap[i] = address(0);
+        }
         candidatesCount = 0;
+        approved_candidates_count = 0;
+        votersCount = 0;
     }
 
     function vote (uint _candidateId) public votingPeriod{
         // require that they haven't voted before
-        require(!voters[msg.sender]);
+        require(!voters[msg.sender],"User already casted their vote");
 
         // require a valid candidate
         require(_candidateId > 0 && _candidateId <= candidatesCount && candidates[_candidateId].approved == true);
 
         // record that voter has voted
         voters[msg.sender] = true;
+        votersCount++;
+        votersmap[votersCount] = msg.sender;
         // update candidate vote Count
         candidates[_candidateId].voteCount ++;
         // trigger voted event
         emit votedEvent(_candidateId);
     }
 
-    function claim_gift() public payable {
+    function claim_gift(uint _candidateId) public payable sufficientBalance {
+        require(candidates[_candidateId].approved, "User not a Candidate");
         require(block.timestamp >= endTime && votingProcess, "Voting not started");
-        require(addressmap[msg.sender] != 0  && candidates[addressmap[msg.sender]].approved, "User not a Candidate");
         require(!gift_claimed, "Already Gift Claimed");
-        address payable candidate_addr = payable(msg.sender);
-        candidate_addr.transfer(wei_received);
+        require(candidates[_candidateId].candidate_address == msg.sender, "Gift can be claimed by winner");
+        address payable candidate_addr = payable(candidates[_candidateId].candidate_address);
+        candidate_addr.transfer(1 ether);
         gift_claimed = true;
     }
 }

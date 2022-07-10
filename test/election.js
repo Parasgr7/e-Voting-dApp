@@ -76,6 +76,9 @@ contract("Election", function(accounts) {
     });
   });
 
+  //add test fail for approving invalidate candidates. and re approving again
+  //add test fail for invalid value @startVoting
+
   it("fails when admin starts voting process with time <= 0 ", function() {
     return Election.deployed().then(function(instance) {
       electionInstance = instance;
@@ -226,6 +229,21 @@ it("admin stops voting process ", async() => {
     return electionInstance.endTime();
   }).then(function(endTime) {
     assert.equal(endTime,0,"endTime reset");
+    return electionInstance.candidatesCount();
+  }).then(function(candidatesCount) {
+    assert.equal(candidatesCount,0,"candidatesCount 0");
+    return electionInstance.candidates(1);
+  }).then(function(candidate1) {
+    return electionInstance.addressmap(candidate1.candidate_address);
+  }).then(function(candidate_id) {
+    //emptying addressmap for candidate1
+    assert.equal(candidate_id,0,"candidate_id 0");
+    return electionInstance.candidates(2);
+  }).then(function(candidate1) {
+    return electionInstance.addressmap(candidate1.candidate_address);
+  }).then(function(candidate_id) {
+    //emptying addressmap for candidate1
+    assert.equal(candidate_id,0,"candidate_id 0");
   })
 });
 
