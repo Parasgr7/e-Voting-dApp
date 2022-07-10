@@ -116,7 +116,7 @@ class UserAccount extends Component {
                 <Grid centered stackable>
                   <h1 className="header">User Profile</h1>
                     <Grid.Row>
-                        <Grid.Column>
+                        <Grid.Column className="pads">
                             <Card fluid className="userAccount">
                               <div className="display" style={{"margin": 10}}>
                                 { this.state.url.length !== 0

@@ -61,6 +61,17 @@ class SignUp extends Component {
 
                     await this.props.contract.methods.register(hash).send({ from: this.props.account }).then(()=>{
                       this.setState({isloading: false});
+                    }).catch(e => {
+                      if (e.code === 4001){
+                         this.setState({isloading: false});
+                         toast.error('Transaction Rejected!!!', {hideProgressBar: true,theme: "white"});
+                      }
+                      else if (e.code === -32603)
+                      {
+                        this.setState({isloading: false});
+                        var error_msg = JSON.parse( e.message.split('\'')[1])["value"]["data"]["message"].split('revert')[1];
+                       toast.error(error_msg, {hideProgressBar: true,theme: "white"});
+                      }
                     });
 
                     this.setState({
