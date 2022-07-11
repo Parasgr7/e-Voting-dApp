@@ -1,27 +1,27 @@
 {
   "files": {
-    "main.css": "/static/css/main.e1d8b434.chunk.css",
-    "main.js": "/static/js/main.913471b0.chunk.js",
-    "main.js.map": "/static/js/main.913471b0.chunk.js.map",
-    "runtime-main.js": "/static/js/runtime-main.b5d1efea.js",
-    "runtime-main.js.map": "/static/js/runtime-main.b5d1efea.js.map",
-    "static/css/2.6e1159c3.chunk.css": "/static/css/2.6e1159c3.chunk.css",
-    "static/js/2.6decd7c0.chunk.js": "/static/js/2.6decd7c0.chunk.js",
-    "static/js/2.6decd7c0.chunk.js.map": "/static/js/2.6decd7c0.chunk.js.map",
-    "index.html": "/index.html",
-    "precache-manifest.15f9134aec88877389e95910711b1530.js": "/precache-manifest.15f9134aec88877389e95910711b1530.js",
-    "service-worker.js": "/service-worker.js",
-    "static/css/2.6e1159c3.chunk.css.map": "/static/css/2.6e1159c3.chunk.css.map",
-    "static/css/main.e1d8b434.chunk.css.map": "/static/css/main.e1d8b434.chunk.css.map",
-    "static/media/App.css": "/static/media/winner.a5c7de34.jpeg",
-    "static/media/semantic.min.css": "/static/media/outline-icons.ef60a4f6.woff",
-    "static/media/diagram.png": "/static/media/diagram.b7d3d0cf.png"
+    "main.css": "/e-Voting-dApp/static/css/main.bbfe2d10.chunk.css",
+    "main.js": "/e-Voting-dApp/static/js/main.3d96c3ef.chunk.js",
+    "main.js.map": "/e-Voting-dApp/static/js/main.3d96c3ef.chunk.js.map",
+    "runtime-main.js": "/e-Voting-dApp/static/js/runtime-main.8007a2bf.js",
+    "runtime-main.js.map": "/e-Voting-dApp/static/js/runtime-main.8007a2bf.js.map",
+    "static/css/2.b6d25bc0.chunk.css": "/e-Voting-dApp/static/css/2.b6d25bc0.chunk.css",
+    "static/js/2.54472908.chunk.js": "/e-Voting-dApp/static/js/2.54472908.chunk.js",
+    "static/js/2.54472908.chunk.js.map": "/e-Voting-dApp/static/js/2.54472908.chunk.js.map",
+    "index.html": "/e-Voting-dApp/index.html",
+    "precache-manifest.1c3d578ff5ac558af2c50defa0d0df3f.js": "/e-Voting-dApp/precache-manifest.1c3d578ff5ac558af2c50defa0d0df3f.js",
+    "service-worker.js": "/e-Voting-dApp/service-worker.js",
+    "static/css/2.b6d25bc0.chunk.css.map": "/e-Voting-dApp/static/css/2.b6d25bc0.chunk.css.map",
+    "static/css/main.bbfe2d10.chunk.css.map": "/e-Voting-dApp/static/css/main.bbfe2d10.chunk.css.map",
+    "static/media/App.css": "/e-Voting-dApp/static/media/winner.a5c7de34.jpeg",
+    "static/media/semantic.min.css": "/e-Voting-dApp/static/media/outline-icons.ef60a4f6.woff",
+    "static/media/diagram.png": "/e-Voting-dApp/static/media/diagram.b7d3d0cf.png"
   },
   "entrypoints": [
-    "static/js/runtime-main.b5d1efea.js",
-    "static/css/2.6e1159c3.chunk.css",
-    "static/js/2.6decd7c0.chunk.js",
-    "static/css/main.e1d8b434.chunk.css",
-    "static/js/main.913471b0.chunk.js"
+    "static/js/runtime-main.8007a2bf.js",
+    "static/css/2.b6d25bc0.chunk.css",
+    "static/js/2.54472908.chunk.js",
+    "static/css/main.bbfe2d10.chunk.css",
+    "static/js/main.3d96c3ef.chunk.js"
   ]
 }
