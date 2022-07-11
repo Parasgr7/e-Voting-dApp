@@ -3,10 +3,10 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@openzeppelin/test-helpers": "^0.5.15",
     "@truffle/hdwallet-provider": "^1.4.1",
     "dotenv": "^6.2.0",
     "ipfs-http-client": "^50.1.2",
-    "@openzeppelin/test-helpers": "^0.5.15",
     "react": "16.11.0",
     "react-circle-loading-animation": "^0.0.3",
     "react-dom": "16.11.0",
@@ -15,6 +15,7 @@
     "react-toastify": "^8.1.0",
     "semantic-ui-css": "^2.4.1",
     "semantic-ui-react": "^2.0.3",
+    "truffle-hdwallet-provider": "^1.0.17",
     "web3": "1.2.2"
   },
   "scripts": {

@@ -2,9 +2,11 @@
 
 # dependencies
 
-/client/node_modules/*
-/node_modules
-/client/yarn-lock
+client/node_modules/*
+client/package-lock.json
+
+
+.env
 
 
 /.pnp
