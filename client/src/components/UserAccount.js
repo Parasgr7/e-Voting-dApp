@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { Card, Grid, Message, Button, Icon, Image, Input } from 'semantic-ui-react';
+import { Card, Grid, Message, Button, Icon, Input } from 'semantic-ui-react';
 import LoadingAnimation from 'react-circle-loading-animation';
 import '../App.css';
 import { ToastContainer, toast } from 'react-toastify';
@@ -35,7 +35,6 @@ class UserAccount extends Component {
     }
 
     fetch_userAccount = async() => {
-      var candidates_count = await this.props.contract.methods.candidatesCount().call({ from: this.props.account });
       var voter_exist_id = Number(await this.props.contract.methods.addressmap(this.props.account).call({ from: this.props.account }));
       this.setState({voter_exist_id: voter_exist_id});
       if (voter_exist_id !== 0)

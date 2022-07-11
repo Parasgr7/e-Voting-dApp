@@ -2,7 +2,6 @@ import React, { Component } from "react";
 import web3Connection from './web3Connection';
 import Contract from './Contract';
 import Election from './Election';
-import Formate from './utils/Formate';
 import 'semantic-ui-css/semantic.min.css'
 import { Menu, Divider } from "semantic-ui-react";
 import { BrowserRouter, Switch, Route, Link, Redirect } from 'react-router-dom';
