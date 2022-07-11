@@ -70,11 +70,6 @@ class App extends Component {
         window.localStorage.removeItem('loggedIn');
         window.localStorage.removeItem('username');
 
-        // this.state.web3.eth.getBalance(accounts[0], (err, balance) => {
-        //   if (!err) {
-        //     this.setState({ balance: Formate(this.state.web3.utils.fromWei(balance, 'ether')) });
-        //   }
-        // });
       });
     }
   }
@@ -120,7 +115,7 @@ class App extends Component {
                           active={activeItem === 'home'}
                           onClick={this.handleItemClick}
                           as={Link}
-                          to='/'
+                          to='/e-Voting-dApp'
                         />
                         {(this.state.admin_address === this.state.account) ?
                           <Menu.Item
@@ -129,7 +124,7 @@ class App extends Component {
                             active={activeItem === 'admin'}
                             onClick={this.handleItemClick}
                             as={Link}
-                            to='/admin'
+                            to='/e-Voting-dApp/admin'
                           />:
                           null
                         }
@@ -139,7 +134,7 @@ class App extends Component {
                           active={activeItem === 'cast vote'}
                           onClick={this.handleItemClick}
                           as={Link}
-                          to='/vote'
+                          to='/e-Voting-dApp/vote'
                         />
                       <Menu.Menu position='right'>
                         <Menu.Item
@@ -149,7 +144,7 @@ class App extends Component {
                           active={activeItem === 'user account'}
                           onClick={this.handleItemClick}
                           as={Link}
-                          to='/user-account'
+                          to='/e-Voting-dApp/user-account'
                         />
                         <Menu.Item
                           position='right'
@@ -158,7 +153,7 @@ class App extends Component {
                           active={activeItem === 'sign out'}
                           onClick={this.handleItemClick}
                           as={Link}
-                          to='/sign-out'
+                          to='/e-Voting-dApp/sign-out'
                         />
                       </Menu.Menu>
                       </>
@@ -172,7 +167,7 @@ class App extends Component {
                           active={activeItem === 'home'}
                           onClick={this.handleItemClick}
                           as={Link}
-                          to='/'
+                          to='/e-Voting-dApp'
                         />
                       <Menu.Menu position='right'>
                         <Menu.Item
@@ -182,7 +177,7 @@ class App extends Component {
                           active={activeItem === 'sign in'}
                           onClick={this.handleItemClick}
                           as={Link}
-                          to='/sign-in'
+                          to='/e-Voting-dApp/sign-in'
                         />
                         <Menu.Item
                           position='right'
@@ -191,7 +186,7 @@ class App extends Component {
                           active={activeItem === 'sign up'}
                           onClick={this.handleItemClick}
                           as={Link}
-                          to='/sign-up'
+                          to='/e-Voting-dApp/sign-up'
                         />
                       </Menu.Menu>
                       </>
@@ -203,10 +198,10 @@ class App extends Component {
             <Divider inverted />
             <Switch>
               {
-                <Route path='/sign-in' >
+                <Route path='/e-Voting-dApp/sign-in' >
                   {
                     this.state.loggedIn ?
-                      <Redirect to='/user-account' />
+                      <Redirect to='/e-Voting-dApp/user-account' />
                       :
                       <SignIn
                         web3={this.state.web3}
@@ -219,10 +214,10 @@ class App extends Component {
                 </Route>
               }
               {
-                <Route path='/sign-up' >
+                <Route path='/e-Voting-dApp/sign-up' >
                   {
                     this.state.loggedIn ?
-                      <Redirect to='/user-account' />
+                      <Redirect to='/e-Voting-dApp/user-account' />
                       :
                       <SignUp
                         web3={this.state.web3}
@@ -237,10 +232,10 @@ class App extends Component {
                   this.state.loggedIn ?
                   (
                     <>
-                      <Route exact path='/' >
+                      <Route exact path='/e-Voting-dApp' >
                         <Home />
                       </Route>
-                      <Route path='/sign-out'>
+                      <Route path='/e-Voting-dApp/sign-out'>
                         <SignOut
                           loggedOut={this.loggedOut}
                         />
@@ -248,7 +243,7 @@ class App extends Component {
                         <br></br>
                         Thank you
                       </Route>
-                      <Route path='/user-account' >
+                      <Route path='/e-Voting-dApp/user-account' >
                         <UserAccount
                           account={this.state.account}
                           username={this.state.username}
@@ -257,7 +252,7 @@ class App extends Component {
                       </Route>
                       {
                         this.state.admin_address === this.state.account ?
-                        <Route path='/admin' >
+                        <Route path='/e-Voting-dApp/admin' >
                           <Admin
                             account={this.state.account}
                             username={this.state.username}
@@ -267,7 +262,7 @@ class App extends Component {
                         :
                         null
                       }
-                      <Route path='/vote' >
+                      <Route path='/e-Voting-dApp/vote' >
                         <Voting
                           account={this.state.account}
                           username={this.state.username}
@@ -279,19 +274,19 @@ class App extends Component {
                   :
                   (
                     <>
-                      <Route exact path='/' >
+                      <Route exact path='/e-Voting-dApp' >
                         <Home />
                       </Route>
-                      <Route path='/sign-out'>
+                      <Route path='/e-Voting-dApp/sign-out'>
                         <SignOut loggedOut={this.loggedOut}/>
                       </Route>
-                      <Route path='/user-account'>
+                      <Route path='/e-Voting-dApp/user-account'>
                         <h1 className="header">You have been logged out</h1>
                       </Route>
-                      <Route path='/admin'>
+                      <Route path='/ae-Voting-dApp/dmin'>
                         <h1 className="header">You have been logged out</h1>
                       </Route>
-                      <Route path='/vote'>
+                      <Route path='/e-Voting-dApp/vote'>
                         <h1 className="header">You have been logged out</h1>
                       </Route>
                     </>

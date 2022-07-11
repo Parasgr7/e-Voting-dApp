@@ -4,13 +4,13 @@ This is a demonstration of a Blockchain based authentication and decentralized e
 Another solidity contract**[Election]** is used for storing the electors as candidates and the voting process is taken care by Admin. At the end of the voting period the results are declared and winning candidate then claims  **1 Ether as prize money**[unlocked from the Smart Contract].
 **IPFS[InterPlanetary File System]** is used for storing Id-proof uploaded by candidates.
 
-## Requirement: 
+## Requirement:
 
 1. Install Metamask extension[without which app will not load]
 2. Connect to Ropsten network [Get free ethers for test network](https://faucet.egorfine.com/)
 3. Enjoy the dApp [share your feedback]
 
-Access the React project deployed over Ropsten Network [eVoitng dApp](https://parasgr7.github.io/).
+Access the React project deployed over Ropsten Network [eVoitng dApp](https://parasgr7.github.io/e-Voting-dApp/).
 
 ![Homepage](https://github.com/Parasgr7/e-Voting-dApp/blob/master/client/src/img/1.png "Homepage")
 ![Canidate](https://github.com/Parasgr7/e-Voting-dApp/blob/master/client/src/img/2.png "Register as Canidate")
@@ -19,6 +19,3 @@ Access the React project deployed over Ropsten Network [eVoitng dApp](https://pa
 ![transact](https://github.com/Parasgr7/e-Voting-dApp/blob/master/client/src/img/5.png "Transaction")
 ![voting](https://github.com/Parasgr7/e-Voting-dApp/blob/master/client/src/img/6.png "Voting")
 ![result](https://github.com/Parasgr7/e-Voting-dApp/blob/master/client/src/img/7.png "Result")
-
-
-

@@ -218,7 +218,7 @@ class Admin extends Component {
                                           }
                                         </div>
                                           <Card.Content>
-                                              <Card.Header style={{'overflow-wrap': 'break-word'}}>{candidate.name +"@gmail.com"}</Card.Header>
+                                              <Card.Header style={{'overflowWrap': 'break-word'}}>{candidate.name +"@gmail.com"}</Card.Header>
                                               <Card.Meta>
                                                   <strong>{candidate.approved ? "Candidate" : "Voter"}</strong>
                                               </Card.Meta>
