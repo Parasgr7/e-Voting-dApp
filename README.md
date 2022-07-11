@@ -10,13 +10,13 @@ Another solidity contract[Election] is used for storing the electors as candidat
 
 Access the React project deployed over Ropsten Network [eVoitng dApp](https://parasgr7.github.io/).
 
-![Homepage](https://github.com/Parasgr7/e-Voting-dApp/client/src/img/1.png "Homepage")
-![Canidate](https://github.com/Parasgr7/e-Voting-dApp/client/src/img/2.png "Register as Canidate")
-![Approved](https://github.com/Parasgr7/e-Voting-dApp/client/src/img/3.png "Approved Canidate")
-![Admin](https://github.com/Parasgr7/e-Voting-dApp/client/src/img/4.png "Admin section")
-![transact](https://github.com/Parasgr7/e-Voting-dApp/client/src/img/5.png "Transaction")
-![voting](https://github.com/Parasgr7/e-Voting-dApp/client/src/img/5.png "Voting")
-![result](https://github.com/Parasgr7/e-Voting-dApp/client/src/img/5.png "Result")
+![Homepage](https://github.com/Parasgr7/e-Voting-dApp/blob/master/client/src/img/1.png "Homepage")
+![Canidate](https://github.com/Parasgr7/e-Voting-dApp/blob/master/client/src/img/2.png "Register as Canidate")
+![Approved](https://github.com/Parasgr7/e-Voting-dApp/blob/master/client/src/img/3.png "Approved Canidate")
+![Admin](https://github.com/Parasgr7/e-Voting-dApp/blob/master/client/src/img/4.png "Admin section")
+![transact](https://github.com/Parasgr7/e-Voting-dApp/blob/master/client/src/img/5.png "Transaction")
+![voting](https://github.com/Parasgr7/e-Voting-dApp/blob/master/client/src/img/6.png "Voting")
+![result](https://github.com/Parasgr7/e-Voting-dApp/blob/master/client/src/img/7.png "Result")
 
 
 
