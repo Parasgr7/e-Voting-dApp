@@ -1,15 +1,15 @@
 {
   "files": {
     "main.css": "/e-Voting-dApp/static/css/main.bbfe2d10.chunk.css",
-    "main.js": "/e-Voting-dApp/static/js/main.01cd0cf2.chunk.js",
-    "main.js.map": "/e-Voting-dApp/static/js/main.01cd0cf2.chunk.js.map",
+    "main.js": "/e-Voting-dApp/static/js/main.7f7682c6.chunk.js",
+    "main.js.map": "/e-Voting-dApp/static/js/main.7f7682c6.chunk.js.map",
     "runtime-main.js": "/e-Voting-dApp/static/js/runtime-main.8007a2bf.js",
     "runtime-main.js.map": "/e-Voting-dApp/static/js/runtime-main.8007a2bf.js.map",
     "static/css/2.b6d25bc0.chunk.css": "/e-Voting-dApp/static/css/2.b6d25bc0.chunk.css",
-    "static/js/2.e5d8d3b4.chunk.js": "/e-Voting-dApp/static/js/2.e5d8d3b4.chunk.js",
-    "static/js/2.e5d8d3b4.chunk.js.map": "/e-Voting-dApp/static/js/2.e5d8d3b4.chunk.js.map",
+    "static/js/2.b7fd47a2.chunk.js": "/e-Voting-dApp/static/js/2.b7fd47a2.chunk.js",
+    "static/js/2.b7fd47a2.chunk.js.map": "/e-Voting-dApp/static/js/2.b7fd47a2.chunk.js.map",
     "index.html": "/e-Voting-dApp/index.html",
-    "precache-manifest.28b10b7561da45bb6c5de05213ad1746.js": "/e-Voting-dApp/precache-manifest.28b10b7561da45bb6c5de05213ad1746.js",
+    "precache-manifest.9e38eb47340156ad608a05039741ec8f.js": "/e-Voting-dApp/precache-manifest.9e38eb47340156ad608a05039741ec8f.js",
     "service-worker.js": "/e-Voting-dApp/service-worker.js",
     "static/css/2.b6d25bc0.chunk.css.map": "/e-Voting-dApp/static/css/2.b6d25bc0.chunk.css.map",
     "static/css/main.bbfe2d10.chunk.css.map": "/e-Voting-dApp/static/css/main.bbfe2d10.chunk.css.map",
@@ -20,8 +20,8 @@
   "entrypoints": [
     "static/js/runtime-main.8007a2bf.js",
     "static/css/2.b6d25bc0.chunk.css",
-    "static/js/2.e5d8d3b4.chunk.js",
+    "static/js/2.b7fd47a2.chunk.js",
     "static/css/main.bbfe2d10.chunk.css",
-    "static/js/main.01cd0cf2.chunk.js"
+    "static/js/main.7f7682c6.chunk.js"
   ]
 }
