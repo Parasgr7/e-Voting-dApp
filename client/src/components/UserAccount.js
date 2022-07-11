@@ -55,7 +55,6 @@ class UserAccount extends Component {
         }
 
       }
-      console.log(this.state);
     }
 
     registerCandidate = async () => {

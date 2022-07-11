@@ -15,8 +15,6 @@ client/package-lock.json
 # testing
 /coverage
 
-# production
-/client/src/contracts
 
 # misc
 .DS_Store
