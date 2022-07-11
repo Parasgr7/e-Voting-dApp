@@ -4,6 +4,8 @@ import { Form, Button, Card, Message } from 'semantic-ui-react';
 import AuthenticationHash from '../utils/AuthenticationHash';
 import "../App.css";
 import LoadingAnimation from 'react-circle-loading-animation';
+import { ToastContainer, toast } from 'react-toastify';
+import 'react-toastify/dist/ReactToastify.css';
 
 class SignUp extends Component {
     state = {
@@ -94,6 +96,7 @@ class SignUp extends Component {
     render() {
         return (
             <div className="sign-up">
+                <ToastContainer toastStyle={{ backgroundColor: "#327F94" }}/>
                 <LoadingAnimation isLoading={this.state.isloading} />
                 <h1 className="header">Create an account</h1>
                 <div className='signup-form'>

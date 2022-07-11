@@ -31,7 +31,7 @@ div.homeHeader{
 }
 .App {
   text-align: center;
-  min-height: 120vh; 
+  min-height: 120vh;
   font-size: 20px;
   font-weight: 200;
   word-spacing: 1px;
@@ -154,6 +154,17 @@ b, strong {
   width: 310px;
 }
 
+.ui.fluid.card.electionWinner1{
+ margin: auto;
+ border: 3px solid #0feacce6;
+ border-radius: 1.5rem;
+ background-color: #86c7bee6;
+ background-image: url(./img/winner.jpeg);
+ background-repeat: no-repeat;
+ background-position: 120px 260px;
+ background-size: 250px;
+ width: 500px;
+}
 .ui.disabled.button.claim_gift{
   background-color: #c0e660;
   opacity: 1!important;

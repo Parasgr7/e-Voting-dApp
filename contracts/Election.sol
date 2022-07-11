@@ -46,7 +46,7 @@ contract Election {
         _;
     }
     modifier sufficientBalance() {
-        require (address(this).balance >=1, "Need sufficient balance");
+        require (address(this).balance >=1, "Insufficient balance");
         _;
     }
     constructor () payable {

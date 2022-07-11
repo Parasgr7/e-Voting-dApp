@@ -192,7 +192,10 @@ class Voting extends Component {
                                       this.state.votingResult.length === 1 ?
                                       (
                                         <>
-                                          <Card fluid className={(this.state.votingResult[0] == candidate.id && this.state.display_results) ? 'electionWinner' : (this.state.approved_candidates.length <= 2 ? "userAccount" : "adminCards")}>
+                                          <Card fluid className={(this.state.votingResult[0] == candidate.id && this.state.display_results && this.state.approved_candidates.length > 2) ? 'electionWinner'
+                                            : (this.state.votingResult[0] == candidate.id && this.state.display_results && this.state.approved_candidates.length == 2) ? 'electionWinner1':
+                                            (this.state.approved_candidates.length <= 2 ? "userAccount" : "adminCards")
+                                          }>
                                               <div className="display" style={{"margin": 10}}>
                                                 { candidate.image_addr.length !== 0
                                                   ? (<><center><img src={candidate.image_addr} height={250} width={this.state.approved_candidates.length<=2 ? 480 : 280} alt="nfts"/></center></>)

@@ -41,8 +41,7 @@ class Admin extends Component {
         var startTime = await this.props.contract.methods.startTime().call({ from: this.props.account });
         var endTime = await this.props.contract.methods.endTime().call({ from: this.props.account });
         var votingProcess = await this.props.contract.methods.votingProcess().call({ from: this.props.account });
-        // var approved_candidates_count = await this.props.contract.methods.approved_candidates_count().call({ from: this.props.account });
-        var approved_candidates_count = 2;
+        var approved_candidates_count = await this.props.contract.methods.approved_candidates_count().call({ from: this.props.account });
 
         this.setState({
           candidates_count: Number(candidates_count),
@@ -145,6 +144,7 @@ class Admin extends Component {
                     {
                        (this.state.approved_candidates_count >=2 && this.state.endTime == 0 ?  <h1 className="header">Start Election</h1>
                       : (this.state.endTime < this.state.dateNow && this.state.endTime !== 0) ? <h1 className="header">Election Over</h1>
+                      : (this.state.endTime > this.state.dateNow && this.state.votingProcess) ? <h1 className="header">Election Inprogress</h1>
                       : this.state.unapproved_candidates.length ===0 ? <h1 className="header">No Pending Candidates</h1>
                       : <h1 className="header">Pending Canidates</h1>
                       )
