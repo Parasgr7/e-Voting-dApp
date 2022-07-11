@@ -1,6 +1,6 @@
 self.__precacheManifest = (self.__precacheManifest || []).concat([
   {
-    "revision": "fba7d567ead545c98b03c9acf2283fb9",
+    "revision": "ccf216e83099d16664f867c7435e7616",
     "url": "/e-Voting-dApp/index.html"
   },
   {
@@ -8,15 +8,15 @@ self.__precacheManifest = (self.__precacheManifest || []).concat([
     "url": "/e-Voting-dApp/static/css/2.b6d25bc0.chunk.css"
   },
   {
-    "revision": "ba1652655cc97608c972",
-    "url": "/e-Voting-dApp/static/css/main.bbfe2d10.chunk.css"
+    "revision": "e156c19c6dbc9287b711",
+    "url": "/e-Voting-dApp/static/css/main.76b24839.chunk.css"
   },
   {
     "revision": "655256f4762b1625851e",
     "url": "/e-Voting-dApp/static/js/2.b7fd47a2.chunk.js"
   },
   {
-    "revision": "ba1652655cc97608c972",
+    "revision": "e156c19c6dbc9287b711",
     "url": "/e-Voting-dApp/static/js/main.7f7682c6.chunk.js"
   },
   {
