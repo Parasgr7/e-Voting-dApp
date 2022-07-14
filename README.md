@@ -4,6 +4,13 @@ This is a demonstration of a Blockchain based authentication and decentralized e
 Another solidity contract **[Election]** is used for storing the electors as candidates and the voting process is taken care by Admin. At the end of the voting period the results are declared and winning candidate then claims  **1 Ether as prize money**[unlocked from the Smart Contract].
 **IPFS[InterPlanetary File System]** is used for storing Id-proof uploaded by candidates.
 
+## Features
+1. Deployed Solidity Smart Contract to Ropsten Test Network
+2. Solidity Smart Contract Test Cases written
+3. Proper error handling [in Smart Contract and Frontend]
+4. Usage of InterPlanetary File System[**IPFS**] to store IDProof of Candidates
+5. Admin Feature[i.e Contract Owner]
+6. Fully functional React App.
 
 ## Requirement:
 
