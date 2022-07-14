@@ -153,7 +153,7 @@ class SignUp extends Component {
                         </Card.Content>
                     </Card>
                     <div className="signin-onUp">
-                        Already have an account? <Link to='/sign-in'>Sign in</Link>
+                        Already have an account? <Link to='/e-Voting-dApp/sign-in'>Sign in</Link>
                     </div>
                 </div>
             </div>

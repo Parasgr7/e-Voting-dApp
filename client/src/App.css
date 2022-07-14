@@ -17,7 +17,7 @@ div.homeHeader{
 }
 .ui.input.fileInput>input {
   margin-left: 12px;
-  max-width: 70%!important;
+  max-width: 65%!important;
 }
 .imageUpload{
   margin: 12px;
@@ -118,7 +118,7 @@ b, strong {
 }
 .ui.fluid.card.userAccount {
   margin: auto;
-  width: 500px;
+  width: 400px;
 }
 
 .ui.fluid.card.adminCards {
@@ -140,7 +140,7 @@ b, strong {
 }
  .ui.fluid.card {
    text-align: left;
-   border-radius: 1.5rem;
+   border-radius: 1 rem;
  }
  .ui.fluid.card.electionWinner{
   margin: auto;
@@ -184,6 +184,7 @@ h1.header{
   font-size: 40px;
   font-weight: lighter;
   font-family: fangsong;
+  padding-top: 15px;
 }
 
 span > b.name{

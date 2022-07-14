@@ -173,16 +173,22 @@ class Voting extends Component {
                             }
                           </Grid.Column>
                         </Grid.Row>
-                        <Grid.Row centered>
-                          <Grid.Column>
-                            <CountdownTimer targetDate={this.state.endTime} votingProcess={this.state.votingProcess} />
-                          </Grid.Column>
-                        </Grid.Row>
-                        <Grid.Row centered>
-                          <Grid.Column className="textCenter">
-                            {(this.state.votingProcess && this.state.endTime < this.state.dateNow) ? <Button color= "green" size="large" onClick={()=> this.fetch_election_results()}>{this.state.results_button_text}</Button>: null}
-                          </Grid.Column>
-                        </Grid.Row>
+                        {this.state.votingProcess ?
+                          <Grid.Row centered>
+                            <Grid.Column>
+                              <CountdownTimer targetDate={this.state.endTime} votingProcess={this.state.votingProcess} />
+                            </Grid.Column>
+                          </Grid.Row>
+                          : null
+                        }
+                        {(this.state.votingProcess && this.state.endTime < this.state.dateNow) ?
+                          <Grid.Row centered>
+                            <Grid.Column className="textCenter">
+                              {(this.state.votingProcess && this.state.endTime < this.state.dateNow) ? <Button color= "green" size="large" onClick={()=> this.fetch_election_results()}>{this.state.results_button_text}</Button>: null}
+                            </Grid.Column>
+                          </Grid.Row>
+                        : null
+                        }
                         <Grid.Row>
                           {
                             this.state.approved_candidates.map((candidate, index) => {
@@ -194,11 +200,11 @@ class Voting extends Component {
                                         <>
                                           <Card fluid className={(this.state.votingResult[0] == candidate.id && this.state.display_results && this.state.approved_candidates.length > 2) ? 'electionWinner'
                                             : (this.state.votingResult[0] == candidate.id && this.state.display_results && this.state.approved_candidates.length == 2) ? 'electionWinner1':
-                                            (this.state.approved_candidates.length <= 2 ? "userAccount" : "adminCards")
+                                            (this.state.approved_candidates.length == 2 ? "userAccount" : "adminCards")
                                           }>
                                               <div className="display" style={{"margin": 10}}>
                                                 { candidate.image_addr.length !== 0
-                                                  ? (<><center><img src={candidate.image_addr} height={250} width={this.state.approved_candidates.length<=2 ? 480 : 280} alt="nfts"/></center></>)
+                                                  ? (<><center><img src={candidate.image_addr} height={250} width={this.state.approved_candidates.length<=2 ? 380 : 280} alt="nfts"/></center></>)
                                                   : (<><center><img src="https://ipfs.infura.io/ipfs/QmRLQCfLJ8VVMNjyUyNjTP8DXYuuAjkWuUG1S1KG4XSm72" height={250} width={250} alt="nfts"/></center></>)
                                                 }
                                               </div>

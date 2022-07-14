@@ -118,7 +118,7 @@ class UserAccount extends Component {
                             <Card fluid className="userAccount">
                               <div className="display" style={{"margin": 10}}>
                                 { this.state.url.length !== 0
-                                  ? (<><center><img src={this.state.url} height={250} width={480} alt="nfts"/></center></>)
+                                  ? (<><center><img src={this.state.url} height={250} width={380} alt="nfts"/></center></>)
                                   : (<><center><img src="https://ipfs.infura.io/ipfs/QmRLQCfLJ8VVMNjyUyNjTP8DXYuuAjkWuUG1S1KG4XSm72" height={200} width={200} alt="nfts"/></center></>)
                                 }
                               </div>
@@ -127,10 +127,10 @@ class UserAccount extends Component {
                                 : (<>
                                   <Grid divided='vertically'>
                                     <Grid.Row centered columns={2}>
-                                      <Grid.Column width={10}>
+                                      <Grid.Column width={12}>
                                         <Input onChange={this.retrieveFile} required type="file" className="fileInput"/>
                                       </Grid.Column>
-                                      <Grid.Column width={6} className="textCenter" style={{"marginTop": 10}}>
+                                      <Grid.Column width={4} className="textCenter" style={{"marginTop": 5, "paddingLeft": 0}}>
                                         <Button color='olive' disabled={this.state.img_button_disable} onClick={this.handleSubmit} className="imageUpload">{this.state.img_text}</Button>
                                       </Grid.Column>
                                     </Grid.Row>

@@ -25,6 +25,7 @@ class App extends Component {
       election_contract: null,
       balance: null,
       activeItem: 'home',
+      color: 'teal',
       signedUp: false,
       loggedIn: window.localStorage.getItem('loggedIn') || false ,
       username: window.localStorage.getItem('username') || ''
@@ -32,7 +33,7 @@ class App extends Component {
   }
 
 
-  handleItemClick = (e, { name }) => {this.setState({ activeItem: name });}
+  handleItemClick = (e, { name }) => {this.setState({ activeItem: name, color: 'teal' });}
 
   componentDidMount = async () => {
     try {
@@ -47,7 +48,7 @@ class App extends Component {
 
     } catch (error) {
       alert(
-        `Failed to load web3`,
+        `Connect to MetaMask Ropsten Network`,
       );
       console.error(error);
     }
@@ -149,7 +150,7 @@ class App extends Component {
                         <Menu.Item
                           position='right'
                           name='sign out'
-                          color='red'
+                          color={color}
                           active={activeItem === 'sign out'}
                           onClick={this.handleItemClick}
                           as={Link}

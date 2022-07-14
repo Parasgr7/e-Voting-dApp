@@ -9,7 +9,7 @@ class SignIn extends Component {
     state = {
         username: '',
         password: '',
-        digicode: '123456',
+        digicode: '',
         alertMessage: '',
         status: '',
         loggedIn: false,
@@ -165,9 +165,9 @@ class SignIn extends Component {
                     </Card>
                     {
                         this.props.signedUp ?
-                            console.log() :
+                            null :
                             <div className="signin-onUp">
-                                Don't have an account? <Link to='/sign-up'>Sign up</Link>
+                                Don't have an account? <Link to='/e-Voting-dApp/sign-up'>Sign up</Link>
                             </div>
                     }
                 </div>

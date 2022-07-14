@@ -167,6 +167,7 @@ class Admin extends Component {
                                 content: 'Start Voting',
                                 onClick: () => this.startVoting()
                               }}
+                            type="number"
                             onChange={this.handleInputChange}
                             actionPosition='left'
                             defaultValue={this.state.votingTimePeriod}
@@ -213,7 +214,7 @@ class Admin extends Component {
                                       <Card fluid className={this.state.unapproved_candidates.length <= 2 ? "userAccount" :"adminCards"}>
                                         <div className="display" style={{"margin": 10}}>
                                           { candidate.image_addr.length !== 0
-                                            ? (<><center><img src={candidate.image_addr} height={250} width={this.state.unapproved_candidates.length<=2 ? 480 : 280} alt="nfts"/></center></>)
+                                            ? (<><center><img src={candidate.image_addr} height={250} width={this.state.unapproved_candidates.length<=2 ? 380 : 280} alt="nfts"/></center></>)
                                             : (<><center><img src="https://ipfs.infura.io/ipfs/QmRLQCfLJ8VVMNjyUyNjTP8DXYuuAjkWuUG1S1KG4XSm72" height={250} width={250} alt="nfts"/></center></>)
                                           }
                                         </div>
