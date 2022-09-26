@@ -4,10 +4,11 @@
 
 client/node_modules/*
 client/package-lock.json
+yarn.lock
+yarn-error.log
 
-
+client/.env
 .env
-
 
 /.pnp
 .pnp.js

@@ -215,7 +215,7 @@ class Admin extends Component {
                                         <div className="display" style={{"margin": 10}}>
                                           { candidate.image_addr.length !== 0
                                             ? (<><center><img src={candidate.image_addr} height={250} width={this.state.unapproved_candidates.length<=2 ? 380 : 280} alt="nfts"/></center></>)
-                                            : (<><center><img src="https://ipfs.infura.io/ipfs/QmRLQCfLJ8VVMNjyUyNjTP8DXYuuAjkWuUG1S1KG4XSm72" height={250} width={250} alt="nfts"/></center></>)
+                                            : (<><center><img src="https://paras.infura-ipfs.io/ipfs/QmcZ3mLp4voS6AbJSXrhtNYJGzUwvV3ubfJvr3LnSxc3ER" height={250} width={250} alt="nfts"/></center></>)
                                           }
                                         </div>
                                           <Card.Content>

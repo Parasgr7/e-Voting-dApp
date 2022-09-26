@@ -6,6 +6,7 @@
   "dependencies": {
     "@openzeppelin/test-helpers": "^0.5.15",
     "@truffle/hdwallet-provider": "^1.4.1",
+    "buffer": "^6.0.3",
     "dotenv": "^6.2.0",
     "ipfs-http-client": "^50.1.2",
     "react": "16.11.0",

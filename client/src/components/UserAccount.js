@@ -5,8 +5,20 @@ import '../App.css';
 import { ToastContainer, toast } from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
 import {create} from 'ipfs-http-client';
+import { Buffer } from 'buffer';
+require('dotenv').config()
 
-const client = create({ host: "ipfs.infura.io", port: 5001, protocol: "https"});
+
+const auth = 'Basic ' + Buffer.from(process.env.REACT_APP_projectId + ':' + process.env.REACT_APP_projectSecret).toString('base64');
+
+const client = create({ host: "ipfs.infura.io", 
+                        port: 5001, 
+                        protocol: "https",
+                        headers: {
+                          authorization: auth,
+                      },
+                  });
+
 
 class UserAccount extends Component {
   constructor() {
@@ -94,9 +106,9 @@ class UserAccount extends Component {
       e.preventDefault();
       try {
         const created = await client.add(this.state.file);
-        const url = `https://ipfs.infura.io/ipfs/${created.path}`;
+        const url = `https://paras.infura-ipfs.io/ipfs/${created.path}`;
+
         this.setState({url: url});
-        console.log(this.state);
         this.setState({img_text: "Change Image", img_button_disable: false});
       } catch (error) {
         console.log(error);
@@ -119,7 +131,7 @@ class UserAccount extends Component {
                               <div className="display" style={{"margin": 10}}>
                                 { this.state.url.length !== 0
                                   ? (<><center><img src={this.state.url} height={250} width={380} alt="nfts"/></center></>)
-                                  : (<><center><img src="https://ipfs.infura.io/ipfs/QmRLQCfLJ8VVMNjyUyNjTP8DXYuuAjkWuUG1S1KG4XSm72" height={200} width={200} alt="nfts"/></center></>)
+                                  : (<><center><img src="https://paras.infura-ipfs.io/ipfs/QmcZ3mLp4voS6AbJSXrhtNYJGzUwvV3ubfJvr3LnSxc3ER" height={200} width={200} alt="nfts"/></center></>)
                                 }
                               </div>
                               {this.state.voter_exist_id ?
